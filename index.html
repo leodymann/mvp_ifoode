@@ -1,0 +1,606 @@
+<!doctype html>
+<html lang="pt-BR">
+  <head>
+    <meta charset="UTF-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <title>Ped'ai</title>
+    <link rel="preconnect" href="https://fonts.googleapis.com" />
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin />
+    <link
+      href="https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600;700;800;900&display=swap"
+      rel="stylesheet"
+    />
+    <link rel="stylesheet" href="styles.css" />
+  </head>
+  <body>
+    <header class="topbar">
+      <div class="user-address">
+        <strong>Olá, Léo</strong>
+        <span class="address-line">
+          <svg class="pin-icon" viewBox="0 0 24 24" aria-hidden="true">
+            <path d="M12 21s7-6.07 7-12A7 7 0 0 0 5 9c0 5.93 7 12 7 12Z"></path>
+            <circle cx="12" cy="9" r="2.4"></circle>
+          </svg>
+          <span>Av. Humberto Lucena, 404</span>
+        </span>
+      </div>
+    </header>
+
+    <main>
+      <section id="home-view" class="view home-shell active">
+        <section class="food-feed" aria-label="Feed de pratos">
+          <div class="section-heading compact">
+            <div>
+              <h2>Pedidos em destaque</h2>
+              <p>Role para ver poucas sugestoes por vez.</p>
+            </div>
+          </div>
+          <div class="feed-carousel">
+            <a class="feed-card hero-feed" href="#ByteTruck/Catalogo">
+              <img
+                src="cardapios/Combo BBurguer + Fritas.jpg"
+                alt="Combo BBurguer com fritas"
+              />
+              <span class="badge live">Mais pedido agora</span>
+              <div>
+                <h1>Combo BBurguer</h1>
+                <p>ByteTruck - burger + fritas</p>
+              </div>
+            </a>
+            <a class="feed-card" href="#ByteTruck/Catalogo">
+              <img src="cardapios/ByteBurguer.jpg" alt="ByteBurguer" />
+              <div>
+                <h2>ByteBurguer</h2>
+                <p>Classico da casa</p>
+              </div>
+            </a>
+            <a class="feed-card" href="#ByteTruck/Catalogo">
+              <img src="cardapios/BQuarter Max.jpg" alt="BQuarter Max" />
+              <div>
+                <h2>BQuarter Max</h2>
+                <p>Alto, suculento, direto</p>
+              </div>
+            </a>
+            <a class="feed-card" href="#ByteTruck/Catalogo">
+              <img src="cardapios/XByte Common.jpeg" alt="XByte Common" />
+              <div>
+                <h2>XByte Common</h2>
+                <p>Queijo e molho</p>
+              </div>
+            </a>
+            <a class="feed-card" href="#ByteTruck/Catalogo">
+              <img
+                src="cardapios/Bburguers(3 ByteBurguers).jpg"
+                alt="Tres ByteBurguers"
+              />
+              <div>
+                <h2>3 ByteBurguers</h2>
+                <p>Pra dividir</p>
+              </div>
+            </a>
+          </div>
+        </section>
+
+        <section class="store-section">
+          <div class="section-heading compact">
+            <div>
+              <h2>Lojas prioritarias</h2>
+              <p>Top 3 do momento para evitar excesso de escolha.</p>
+            </div>
+          </div>
+          <div class="store-list">
+            <a class="store-card" href="#ByteTruck/Catalogo">
+              <img src="cardapios/fachada.jpg" alt="Fachada ByteTruck" />
+              <div>
+                <strong>ByteTruck</strong>
+                <span>Hamburguer - 22-35 min - 4,8</span>
+              </div>
+              <em>Prioritaria</em>
+            </a>
+            <a
+              class="store-card disabled-store"
+              href="#home"
+              data-store-disabled
+            >
+              <div class="store-fake pizza-art" aria-hidden="true"></div>
+              <div>
+                <strong>Slice Byte</strong>
+                <span>Pizza - 30-45 min - 4,7</span>
+              </div>
+              <em>Em breve</em>
+            </a>
+            <a
+              class="store-card disabled-store"
+              href="#home"
+              data-store-disabled
+            >
+              <div class="store-fake bowl-art" aria-hidden="true"></div>
+              <div>
+                <strong>Kernel Bowl</strong>
+                <span>Bowls - 20-30 min - 4,6</span>
+              </div>
+              <em>Em breve</em>
+            </a>
+          </div>
+        </section>
+      </section>
+
+      <section id="search-view" class="view search-shell">
+        <section class="search-page">
+          <label class="search-box search-page-box">
+            <svg class="search-icon-svg" viewBox="0 0 24 24" aria-hidden="true">
+              <circle cx="11" cy="11" r="6.5"></circle>
+              <path d="m16 16 4 4"></path>
+            </svg>
+            <input
+              id="searchInput"
+              type="search"
+              placeholder="Buscar burger, combo ou batata"
+            />
+          </label>
+          <div id="searchResults" class="menu-list search-results"></div>
+        </section>
+      </section>
+
+      <section id="public-view" class="view public-shell">
+        <section class="restaurant-cover">
+          <div
+            class="cover-art"
+            role="img"
+            aria-label="Fachada do estabelecimento ByteTruck"
+          >
+            <span class="cover-badge">
+              <svg viewBox="0 0 24 24" aria-hidden="true">
+                <circle cx="12" cy="12" r="8"></circle>
+                <path d="m8.5 12.4 2.2 2.2 4.8-5"></path>
+              </svg>
+              Aberto agora
+            </span>
+          </div>
+          <div class="restaurant-summary">
+            <div class="restaurant-title">
+              <h1>ByteTruck</h1>
+              <p>Hamburguer artesanal - 22-35 min - entrega R$ 5,99</p>
+              <div
+                class="restaurant-metrics"
+                aria-label="Resumo do restaurante"
+              >
+                <span>
+                  <svg viewBox="0 0 24 24" aria-hidden="true">
+                    <path
+                      d="m12 3 2.7 5.47 6.03.88-4.36 4.25 1.03 6-5.4-2.84-5.4 2.84 1.03-6-4.36-4.25 6.03-.88L12 3Z"
+                    ></path>
+                  </svg>
+                  4,8
+                </span>
+                <span>
+                  <svg viewBox="0 0 24 24" aria-hidden="true">
+                    <path d="M12 6v6l4 2"></path>
+                    <circle cx="12" cy="12" r="9"></circle>
+                  </svg>
+                  22-35 min
+                </span>
+                <span>
+                  <svg viewBox="0 0 24 24" aria-hidden="true">
+                    <path d="M4 7h11v9H4zM15 10h3l2 3v3h-5z"></path>
+                    <circle cx="8" cy="18" r="2"></circle>
+                    <circle cx="17" cy="18" r="2"></circle>
+                  </svg>
+                  R$ 5,99
+                </span>
+              </div>
+            </div>
+            <a class="button ghost" href="#pedido">Acompanhar pedido</a>
+          </div>
+        </section>
+
+        <section class="store-promo-strip" aria-label="Promocao do restaurante">
+          <img
+            src="cardapios/Combo BBurguer + Fritas.jpg"
+            alt="Combo BBurguer com fritas"
+          />
+          <div>
+            <span class="badge live">Oferta da loja</span>
+            <h2>Combo BBurguer + fritas</h2>
+            <p>O mais pedido com cota prioritaria e taxa clara no checkout.</p>
+          </div>
+          <strong>R$ 44,90</strong>
+        </section>
+
+        <section id="catalogo" class="content-grid">
+          <section class="catalog-section">
+            <div class="section-heading compact">
+              <div>
+                <h2>Cardapio curto</h2>
+                <p class="catalog-note">
+                  Poucas escolhas, direto no que mais sai.
+                </p>
+              </div>
+              <nav class="category-row" aria-label="Filtros simples">
+                <button class="active" data-filter="all">Recomendados</button>
+                <button data-filter="veg">Sem carne</button>
+              </nav>
+            </div>
+            <div id="menuList" class="menu-list"></div>
+          </section>
+
+          <aside class="order-panel">
+            <div class="panel-heading">
+              <h2>Finalizar pedido</h2>
+              <span id="cartCount">0 itens</span>
+              <button
+                class="cart-close"
+                id="closeCart"
+                type="button"
+                aria-label="Fechar sacola"
+              >
+                x
+              </button>
+            </div>
+            <div id="cartItems" class="cart-list empty">
+              Sua sacola esta vazia.
+            </div>
+
+            <fieldset class="field-group compact-payments">
+              <legend>Pagamento</legend>
+              <label>
+                <input type="radio" name="payment" value="pix" checked />
+                <img
+                  class="payment-logo pix-logo"
+                  src="https://upload.wikimedia.org/wikipedia/commons/5/50/Pix_%28Brazil%29_logo.svg"
+                  alt=""
+                  aria-hidden="true"
+                />
+                <strong>Pix</strong>
+              </label>
+              <label>
+                <input type="radio" name="payment" value="card" />
+                <svg
+                  class="payment-icon"
+                  viewBox="0 0 32 32"
+                  aria-hidden="true"
+                >
+                  <rect x="3" y="7" width="26" height="18" rx="3" />
+                  <path d="M3 13h26" />
+                  <path d="M8 20h7" />
+                </svg>
+                <strong>Cartao</strong>
+              </label>
+              <label>
+                <input type="radio" name="payment" value="cash" />
+                <svg
+                  class="payment-icon"
+                  viewBox="0 0 32 32"
+                  aria-hidden="true"
+                >
+                  <rect x="4" y="8" width="24" height="16" rx="3" />
+                  <circle cx="16" cy="16" r="4" />
+                  <path d="M8 12h2M22 20h2" />
+                </svg>
+                <strong>Dinheiro</strong>
+              </label>
+            </fieldset>
+
+            <label class="check-row">
+              <input type="checkbox" id="priorityToggle" checked />
+              Usar cota prioritaria
+            </label>
+
+            <div class="totals">
+              <div>
+                <span>Subtotal</span><strong id="subtotal">R$ 0,00</strong>
+              </div>
+              <div><span>Taxa</span><strong id="fee">R$ 0,00</strong></div>
+              <div class="grand">
+                <span>Total</span><strong id="total">R$ 0,00</strong>
+              </div>
+            </div>
+            <p class="notice">
+              Taxa apenas para pagamento pelo site. Dinheiro nao tem taxa.
+            </p>
+            <button
+              class="button ghost full continue-shopping"
+              id="continueShopping"
+              type="button"
+            >
+              Continuar comprando
+            </button>
+            <button class="button primary full" id="placeOrder">
+              Finalizar pedido
+            </button>
+          </aside>
+        </section>
+      </section>
+
+      <section id="tracking-view" class="view tracking-shell">
+        <div class="section-heading">
+          <div>
+            <p class="eyebrow">Cliente</p>
+            <h1>Acompanhar pedido</h1>
+          </div>
+          <a class="button ghost" href="#ByteTruck/Catalogo"
+            >Voltar ao restaurante</a
+          >
+        </div>
+        <div class="tracking-card">
+          <div>
+            <span class="badge live">Pedido #BT-1048</span>
+            <h2 id="trackingStatus">Em preparo</h2>
+            <p id="trackingText">
+              O ByteTruck recebeu seu pedido e a cozinha ja comecou a preparar.
+            </p>
+          </div>
+          <div class="delivery-map" aria-label="Mapa visual da entrega">
+            <div class="map-grid" aria-hidden="true"></div>
+            <div class="map-route" aria-hidden="true"></div>
+            <span class="map-pin store-pin" aria-label="Restaurante"></span>
+            <span class="map-pin courier-pin" aria-label="Entregador"></span>
+            <span class="map-pin home-pin" aria-label="Destino"></span>
+            <div class="map-label store-label">ByteTruck</div>
+            <div class="map-label home-label">Voce</div>
+          </div>
+          <ol class="timeline" id="timeline">
+            <li class="done">Recebido</li>
+            <li class="current">Em preparo</li>
+            <li>Saiu para entrega</li>
+            <li>Entregue</li>
+          </ol>
+          <div class="tracking-actions">
+            <button class="button ghost" id="advanceOrder">
+              Simular proximo status
+            </button>
+            <button class="button danger" id="cancelOrder">
+              Cancelar pedido
+            </button>
+          </div>
+        </div>
+      </section>
+
+      <section id="admin-view" class="view admin-shell">
+        <div class="admin-layout">
+          <aside class="admin-side">
+            <div class="partner-card">
+              <img src="cardapios/fachada.jpg" alt="Fachada ByteTruck" />
+              <div>
+                <a class="admin-wordmark" href="#admin">ByteTruck</a>
+                <span>Plano Prioritario</span>
+              </div>
+            </div>
+            <nav class="admin-tabs" aria-label="Areas privadas">
+              <button class="active" data-admin-tab="orders" data-admin-title="Pedidos"><span>01</span>Pedidos</button>
+              <button data-admin-tab="menu" data-admin-title="Cardapio"><span>02</span>Cardapio</button>
+              <button data-admin-tab="finance" data-admin-title="Financeiro"><span>03</span>Financeiro</button>
+              <button data-admin-tab="campaigns" data-admin-title="Campanhas"><span>04</span>Campanhas</button>
+              <button data-admin-tab="metrics" data-admin-title="Metricas"><span>05</span>Metricas</button>
+              <button data-admin-tab="integrations" data-admin-title="Integracoes"><span>06</span>Integracoes</button>
+            </nav>
+            <div class="side-summary">
+              <span>Receita hoje</span>
+              <strong>R$ 5.040</strong>
+              <small>+12% vs. ontem</small>
+            </div>
+          </aside>
+
+          <div class="admin-main">
+            <div class="partner-header">
+              <div>
+                <p class="eyebrow">ByteTruck</p>
+                <h1 id="adminTitle">Pedidos</h1>
+                <div class="partner-pills">
+                  <span>Aberto</span>
+                  <span>WhatsApp conectado</span>
+                  <span>Stripe ativo</span>
+                </div>
+              </div>
+              <div class="partner-actions">
+                <button class="button ghost" type="button">Pausar pedidos</button>
+                <a class="button primary" href="#ByteTruck/Catalogo">Ver loja</a>
+              </div>
+            </div>
+
+            <section class="admin-tab active" id="orders">
+              <div id="ordersBoard" class="orders-board"></div>
+            </section>
+
+            <section class="admin-tab" id="menu">
+              <div class="panel table-panel">
+                <div class="panel-heading">
+                  <h2>Gerenciamento do cardapio</h2>
+                  <button class="button ghost small" id="toggleMenuLimit">
+                    Alternar limite anti-escolha
+                  </button>
+                </div>
+                <div id="adminMenu" class="admin-list"></div>
+              </div>
+            </section>
+
+            <section class="admin-tab" id="finance">
+              <div class="finance-grid">
+                <article class="panel">
+                  <h2>Receita por metodo</h2>
+                  <p class="panel-subtitle">Taxas aplicadas somente quando o cliente paga pelo site.</p>
+                  <div class="money-row">
+                    <span>Pix pelo site</span><strong>R$ 1.920,00</strong
+                    ><em>1,99%</em>
+                  </div>
+                  <div class="money-row">
+                    <span>Cartao pelo site</span><strong>R$ 2.440,00</strong
+                    ><em>4,99% + R$ 0,49</em>
+                  </div>
+                  <div class="money-row">
+                    <span>Dinheiro</span><strong>R$ 680,00</strong
+                    ><em>sem taxa</em>
+                  </div>
+                </article>
+                <article class="panel">
+                  <h2>Liquidacao estimada</h2>
+                  <div class="big-number">R$ 4.879,93</div>
+                  <div class="settlement-meter" aria-hidden="true"><span></span></div>
+                  <p class="notice">
+                    Taxas exibidas apenas para pagamentos processados no site
+                    via Stripe.
+                  </p>
+                </article>
+              </div>
+            </section>
+
+            <section class="admin-tab" id="campaigns">
+              <div class="campaign-grid">
+                <article class="campaign active">
+                  <span class="badge">WhatsApp</span>
+                  <h2>Combo Prioritario</h2>
+                  <p>Envio para clientes que pediram nos ultimos 30 dias.</p>
+                  <button class="button primary small">
+                    Disparar campanha
+                  </button>
+                </article>
+                <article class="campaign">
+                  <span class="badge muted">Agendada</span>
+                  <h2>Relatorio mensal</h2>
+                  <p>
+                    Resumo automatico para donos e gerentes no primeiro dia do
+                    mes.
+                  </p>
+                  <button class="button ghost small">Editar</button>
+                </article>
+              </div>
+            </section>
+
+            <section class="admin-tab" id="metrics">
+              <div class="panel">
+                <h2>Graficos e metricas</h2>
+                <p class="panel-subtitle">Picos de pedido por horario para orientar preparo e campanha.</p>
+                <div class="chart" aria-label="Pedidos por horario">
+                  <span style="height: 34%"><b>11h</b></span>
+                  <span style="height: 62%"><b>12h</b></span>
+                  <span style="height: 76%"><b>13h</b></span>
+                  <span style="height: 48%"><b>18h</b></span>
+                  <span style="height: 91%"><b>19h</b></span>
+                  <span style="height: 70%"><b>20h</b></span>
+                </div>
+                <div class="metric-list">
+                  <span>Conversao publica: <strong>18,4%</strong></span>
+                  <span>Cancelamentos: <strong>2,1%</strong></span>
+                  <span>Tempo medio: <strong>27 min</strong></span>
+                </div>
+              </div>
+            </section>
+
+            <section class="admin-tab" id="integrations">
+              <div class="integration-grid">
+                <article class="panel integration">
+                  <h2>Stripe</h2>
+                  <p>Pix, cartao e calculo de taxa por pedido pago no site.</p>
+                  <span class="status-dot connected">Conectado</span>
+                </article>
+                <article class="panel integration">
+                  <h2>WhatsApp</h2>
+                  <p>
+                    Alertas de pedido, entrega, relatorios semanais/mensais e
+                    campanhas promocionais.
+                  </p>
+                  <span class="status-dot connected">Conectado</span>
+                </article>
+              </div>
+            </section>
+          </div>
+        </div>
+      </section>
+    </main>
+
+    <button
+      class="mobile-cart-trigger"
+      id="openCart"
+      type="button"
+      aria-label="Abrir sacola"
+    >
+      <span class="cart-symbol" aria-hidden="true"></span>
+      <small id="mobileCartCount">0</small>
+    </button>
+    <div class="cart-backdrop" id="cartBackdrop" aria-hidden="true"></div>
+    <nav class="bottom-nav" aria-label="Navegacao principal">
+      <a class="nav-icon home-icon" href="#home" aria-label="Inicio"
+        ><span>Inicio</span></a
+      >
+      <a class="nav-icon search-nav-icon" href="#pesquisa" aria-label="Buscar">
+        <svg viewBox="0 0 24 24" aria-hidden="true">
+          <circle cx="11" cy="11" r="6.5"></circle>
+          <path d="m16 16 4 4"></path>
+        </svg>
+        <span>Buscar</span>
+      </a>
+      <a class="nav-icon order-icon" href="#pedido" aria-label="Pedidos"
+        ><span>Pedidos</span></a
+      >
+      <a class="nav-icon partner-icon" href="#admin" aria-label="Parceiro"
+        ><span>Parceiro</span></a
+      >
+    </nav>
+    <div class="order-detail-backdrop" id="orderDetailBackdrop" aria-hidden="true"></div>
+    <aside
+      class="order-detail-modal"
+      id="orderDetailModal"
+      role="dialog"
+      aria-modal="true"
+      aria-labelledby="orderDetailTitle"
+    >
+      <button
+        class="modal-close"
+        data-close-order-modal
+        type="button"
+        aria-label="Fechar detalhes do pedido"
+      >
+        x
+      </button>
+      <div id="orderDetailContent"></div>
+    </aside>
+    <div class="promo-backdrop" id="promoBackdrop" aria-hidden="true"></div>
+    <aside
+      class="promo-popup"
+      id="promoPopup"
+      role="dialog"
+      aria-modal="true"
+      aria-labelledby="promoTitle"
+    >
+      <button
+        class="promo-close"
+        data-close-popup
+        type="button"
+        aria-label="Fechar promocao"
+      >
+        x
+      </button>
+      <img
+        class="promo-photo"
+        src="cardapios/Combo BBurguer + Fritas.jpg"
+        alt="Combo BBurguer com fritas"
+      />
+      <div class="promo-content">
+        <span class="badge live">Oferta relampago</span>
+        <h2 id="promoTitle">Combo BBurguer</h2>
+        <p>Burger artesanal com fritas crocantes e cota prioritaria hoje.</p>
+        <div class="promo-price">
+          <svg
+            class="fire-icon"
+            viewBox="0 0 24 24"
+            aria-label="Oferta quente"
+            role="img"
+          >
+            <path
+              d="M12.2 22c-4.2 0-7.2-2.9-7.2-6.8 0-2.7 1.5-5 3.7-7.2.4 2 1.5 3.1 2.8 3.7-.5-3.1.7-6 3.6-9.7.6 3.2 2.1 5.2 3.6 7.1 1.3 1.7 2.3 3.3 2.3 5.8 0 4.1-3.2 7.1-8.8 7.1Z"
+            />
+            <path
+              d="M12.2 19.4c-1.8 0-3.1-1.2-3.1-2.9 0-1.3.8-2.5 2-3.7.2 1.1.8 1.8 1.7 2.1-.2-1.5.4-2.8 1.8-4.6.4 1.6 1.1 2.6 1.8 3.5.6.8 1 1.5 1 2.6 0 1.8-1.5 3-5.2 3Z"
+            />
+          </svg>
+          <strong>R$ 44,90</strong>
+        </div>
+        <button class="button primary full" id="promoAdd" type="button">
+          Adicionar combo
+        </button>
+      </div>
+    </aside>
+    <div id="toast" class="toast" role="status" aria-live="polite"></div>
+    <script src="app.js"></script>
+  </body>
+</html>
