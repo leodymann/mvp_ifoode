@@ -287,6 +287,7 @@ function renderOrders() {
 function openOrderModal(orderId) {
   const order = orders.find((entry) => entry.id === orderId);
   if (!order) return;
+  const nextStatus = nextOrderStatus(order.status);
   qs("#orderDetailContent").innerHTML = `
     <div class="panel-heading order-detail-heading">
       <h2 id="orderDetailTitle">Pedido ${order.id}</h2>
@@ -329,6 +330,7 @@ function openOrderModal(orderId) {
     </div>
     <div class="order-detail-actions">
       <button class="button ghost full" data-whatsapp="${order.id}" type="button">Enviar WhatsApp</button>
+      ${nextStatus ? `<button class="button ghost full" data-move-order="${order.id}" data-next-status="${nextStatus}" type="button">Mover para ${nextStatus}</button>` : ""}
       <button class="button primary full" data-close-order-modal type="button">Ok</button>
     </div>
   `;
@@ -339,6 +341,12 @@ function openOrderModal(orderId) {
 function closeOrderModal() {
   qs("#orderDetailModal").classList.remove("show");
   qs("#orderDetailBackdrop").classList.remove("show");
+}
+
+function nextOrderStatus(status) {
+  const flow = ["Novo", "Em preparo", "Entrega"];
+  const index = flow.indexOf(status);
+  return index >= 0 && index < flow.length - 1 ? flow[index + 1] : "";
 }
 
 function moveOrderToStatus(orderId, status) {
@@ -431,6 +439,14 @@ function bindEvents() {
     if (whatsappButton) {
       event.preventDefault();
       showToast(`WhatsApp: alerta do pedido ${whatsappButton.dataset.whatsapp} enviado.`);
+      return;
+    }
+
+    const moveButton = event.target.closest("[data-move-order]");
+    if (moveButton) {
+      event.preventDefault();
+      moveOrderToStatus(moveButton.dataset.moveOrder, moveButton.dataset.nextStatus);
+      closeOrderModal();
       return;
     }
 

@@ -2097,15 +2097,93 @@ body.cart-modal-open .order-panel,
     padding: 0 10px;
     white-space: nowrap;
   }
+  .admin-tabs button span {
+    width: 24px;
+    height: 24px;
+    border-radius: 8px;
+  }
   .side-summary {
     display: none;
   }
   .partner-header {
-    padding: 18px;
+    gap: 12px;
+    padding: 14px;
     border-radius: 14px;
+  }
+  .partner-header h1 {
+    font-size: 34px;
+  }
+  .partner-pills {
+    gap: 6px;
+    margin-top: 10px;
+  }
+  .partner-pills span {
+    min-height: 28px;
+    padding: 6px 9px;
+    font-size: 11px;
   }
   .partner-actions .button {
     flex: 1 1 150px;
+  }
+  .orders-board {
+    display: flex;
+    gap: 10px;
+    overflow-x: auto;
+    margin: 0 -14px;
+    padding: 0 14px 8px;
+    scroll-snap-type: x mandatory;
+    -webkit-overflow-scrolling: touch;
+  }
+  .order-column {
+    flex: 0 0 min(86vw, 360px);
+    min-height: 360px;
+    scroll-snap-align: start;
+  }
+  .column-heading {
+    position: sticky;
+    top: 0;
+    z-index: 2;
+    margin: -12px -12px 10px;
+    padding: 12px;
+    border-radius: 14px 14px 0 0;
+    background: #fff;
+  }
+  .order-ticket {
+    touch-action: auto;
+    cursor: pointer;
+  }
+  .drag-handle {
+    display: none;
+  }
+  .ticket-meta {
+    gap: 6px;
+  }
+  .whatsapp-icon-button {
+    width: 32px;
+    height: 32px;
+  }
+  .order-detail-modal.show {
+    width: min(calc(100vw - 24px), 430px);
+    max-height: calc(100dvh - 24px);
+    padding: 16px;
+    border-radius: 16px;
+  }
+  .modal-close {
+    top: 14px;
+    right: 14px;
+  }
+  .order-detail-heading {
+    padding-right: 40px;
+  }
+  .order-detail-product {
+    grid-template-columns: 82px minmax(0, 1fr);
+  }
+  .order-detail-product img {
+    width: 82px;
+    height: 72px;
+  }
+  .order-detail-grid {
+    grid-template-columns: 1fr 1fr;
   }
   .stat-grid article,
   .order-column,
