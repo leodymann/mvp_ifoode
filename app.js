@@ -1,19 +1,136 @@
 const menu = [
-  { id: 1, name: "ByteBurguer", description: "Burger classico", price: 32.9, tag: "combo", priority: true, image: "cardapios/ByteBurguer.jpg" },
-  { id: 2, name: "Combo BBurguer", description: "Burger + fritas", price: 44.9, tag: "combo", priority: true, recommended: true, image: "cardapios/Combo BBurguer + Fritas.jpg" },
-  { id: 3, name: "BQuarter Max", description: "Burger alto", price: 39.9, tag: "combo", priority: true, image: "cardapios/BQuarter Max.jpg" },
-  { id: 4, name: "XByte Common", description: "Queijo e molho", price: 29.9, tag: "combo", priority: false, image: "cardapios/XByte Common.jpeg" },
-  { id: 5, name: "3 ByteBurguers", description: "Pra dividir", price: 69.9, tag: "combo", priority: false, image: "cardapios/Bburguers(3 ByteBurguers).jpg" },
-  { id: 6, name: "Veggie Kernel", description: "Blend vegetal", price: 34.9, tag: "veg", priority: true, image: "cardapios/ByteBurguer.jpg" },
-  { id: 7, name: "Batata Deploy", description: "Batata crocante", price: 18.9, tag: "side", priority: false, image: "cardapios/Combo BBurguer + Fritas.jpg" },
-  { id: 8, name: "Byte Duplo", description: "Dois burgers", price: 46.9, tag: "combo", priority: false, image: "cardapios/BQuarter Max.jpg" }
+  {
+    id: 1,
+    name: "ByteBurguer",
+    description: "Burger classico",
+    price: 32.9,
+    tag: "combo",
+    priority: true,
+    image: "cardapios/ByteBurguer.jpg",
+  },
+  {
+    id: 2,
+    name: "Combo BBurguer",
+    description: "Burger + fritas",
+    price: 44.9,
+    tag: "combo",
+    priority: true,
+    recommended: true,
+    image: "cardapios/Combo BBurguer + Fritas.jpg",
+  },
+  {
+    id: 3,
+    name: "BQuarter Max",
+    description: "Burger alto",
+    price: 39.9,
+    tag: "combo",
+    priority: true,
+    image: "cardapios/BQuarter Max.jpg",
+  },
+  {
+    id: 4,
+    name: "XByte Common",
+    description: "Queijo e molho",
+    price: 29.9,
+    tag: "combo",
+    priority: false,
+    image: "cardapios/XByte Common.jpeg",
+  },
+  {
+    id: 5,
+    name: "3 ByteBurguers",
+    description: "Pra dividir",
+    price: 69.9,
+    tag: "combo",
+    priority: false,
+    image: "cardapios/Bburguers(3 ByteBurguers).jpg",
+  },
+  {
+    id: 6,
+    name: "Veggie Kernel",
+    description: "Blend vegetal",
+    price: 34.9,
+    tag: "veg",
+    priority: true,
+    image: "cardapios/ByteBurguer.jpg",
+  },
+  {
+    id: 7,
+    name: "Batata Deploy",
+    description: "Batata crocante",
+    price: 18.9,
+    tag: "side",
+    priority: false,
+    image: "cardapios/Combo BBurguer + Fritas.jpg",
+  },
+  {
+    id: 8,
+    name: "Byte Duplo",
+    description: "Dois burgers",
+    price: 46.9,
+    tag: "combo",
+    priority: false,
+    image: "cardapios/BQuarter Max.jpg",
+  },
 ];
 
 const orders = [
-  { id: "BT-1048", client: "Marina", items: "Combo Truck", status: "Em preparo", payment: "Pix", priority: true, image: "cardapios/Combo BBurguer + Fritas.jpg", total: 44.9, phone: "(11) 98888-1048", address: "Rua MVP, 404", note: "Sem cebola, maionese a parte" },
-  { id: "BT-1049", client: "Rafael", items: "Smash Byte", status: "Novo", payment: "Cartao", priority: true, image: "cardapios/ByteBurguer.jpg", total: 32.9, phone: "(11) 97777-1049", address: "Av. Humberto Lucena, 404", note: "Enviar guardanapo extra" },
-  { id: "BT-1050", client: "Duda", items: "Veggie Kernel", status: "Entrega", payment: "Dinheiro", priority: false, image: "cardapios/XByte Common.jpeg", total: 34.9, phone: "(11) 96666-1050", address: "Rua das APIs, 120", note: "Troco para R$ 50,00" },
-  { id: "BT-1051", client: "Caio", items: "Batata Deploy", status: "Novo", payment: "Pix", priority: false, image: "cardapios/Combo BBurguer + Fritas.jpg", total: 18.9, phone: "(11) 95555-1051", address: "Rua Cache, 88", note: "Bem crocante" }
+  {
+    id: "BT-1048",
+    client: "Marina",
+    items: "Combo Truck",
+    status: "Em preparo",
+    payment: "Pix",
+    priority: true,
+    image: "cardapios/Combo BBurguer + Fritas.jpg",
+    total: 44.9,
+    change: "Nao precisa",
+    phone: "(11) 98888-1048",
+    address: "Rua MVP, 404",
+    note: "Sem cebola, maionese a parte",
+  },
+  {
+    id: "BT-1049",
+    client: "Rafael",
+    items: "Smash Byte",
+    status: "Novo",
+    payment: "Cartao",
+    priority: true,
+    image: "cardapios/ByteBurguer.jpg",
+    total: 32.9,
+    change: "Nao precisa",
+    phone: "(11) 97777-1049",
+    address: "Av. Humberto Lucena, 404",
+    note: "Enviar guardanapo extra",
+  },
+  {
+    id: "BT-1050",
+    client: "Duda",
+    items: "Veggie Kernel",
+    status: "Entrega",
+    payment: "Dinheiro",
+    priority: false,
+    image: "cardapios/XByte Common.jpeg",
+    total: 34.9,
+    change: "R$ 50,00",
+    phone: "(11) 96666-1050",
+    address: "Rua das APIs, 120",
+    note: "Troco para R$ 50,00",
+  },
+  {
+    id: "BT-1051",
+    client: "Caio",
+    items: "Batata Deploy",
+    status: "Novo",
+    payment: "Pix",
+    priority: false,
+    image: "cardapios/Combo BBurguer + Fritas.jpg",
+    total: 18.9,
+    change: "Nao precisa",
+    phone: "(11) 95555-1051",
+    address: "Rua Cache, 88",
+    note: "Bem crocante",
+  },
 ];
 
 const state = {
@@ -22,14 +139,17 @@ const state = {
   query: "",
   searchQuery: "",
   trackingStep: 1,
-  menuLimited: true
+  menuLimited: true,
 };
 
 let activeOrderDrag = null;
 
 const mobileMenu = window.matchMedia("(max-width: 720px)");
 
-const money = new Intl.NumberFormat("pt-BR", { style: "currency", currency: "BRL" });
+const money = new Intl.NumberFormat("pt-BR", {
+  style: "currency",
+  currency: "BRL",
+});
 const qs = (selector) => document.querySelector(selector);
 const qsa = (selector) => [...document.querySelectorAll(selector)];
 const setText = (selector, value) => {
@@ -98,7 +218,10 @@ function visibleMenu() {
 
 function renderMenu() {
   const items = visibleMenu();
-  qs("#menuList").innerHTML = items.length ? items.map((item) => `
+  qs("#menuList").innerHTML = items.length
+    ? items
+        .map(
+          (item) => `
     <article class="menu-card ${item.recommended ? "featured-menu-card" : ""}">
       <div class="menu-copy">
         <span class="badge ${item.priority ? "" : "muted"}">${item.priority ? "Prioritario" : "Regular"}</span>
@@ -111,7 +234,10 @@ function renderMenu() {
       </div>
       <img class="food-photo" src="${item.image}" alt="${item.name}" loading="lazy" />
     </article>
-  `).join("") : `
+  `,
+        )
+        .join("")
+    : `
     <article class="menu-card">
       <div class="menu-copy">
         <span class="badge muted">Sem resultado</span>
@@ -124,7 +250,9 @@ function renderMenu() {
 
   qsa("[data-add]").forEach((button) => {
     button.addEventListener("click", () => {
-      const item = menu.find((entry) => entry.id === Number(button.dataset.add));
+      const item = menu.find(
+        (entry) => entry.id === Number(button.dataset.add),
+      );
       state.cart.push(item);
       renderCart();
       showToast(`${item.name} adicionado a sacola.`);
@@ -135,10 +263,17 @@ function renderMenu() {
 function renderSearchResults() {
   const query = state.searchQuery.toLowerCase();
   const items = query
-    ? menu.filter((item) => `${item.name} ${item.description}`.toLowerCase().includes(query)).slice(0, 5)
+    ? menu
+        .filter((item) =>
+          `${item.name} ${item.description}`.toLowerCase().includes(query),
+        )
+        .slice(0, 5)
     : menu.filter((item) => item.recommended || item.priority).slice(0, 4);
 
-  qs("#searchResults").innerHTML = items.length ? items.map((item) => `
+  qs("#searchResults").innerHTML = items.length
+    ? items
+        .map(
+          (item) => `
     <article class="menu-card search-result-card">
       <div class="menu-copy">
         <span class="badge ${item.recommended ? "live" : ""}">${item.recommended ? "Mais pedido" : "Prioritario"}</span>
@@ -151,7 +286,10 @@ function renderSearchResults() {
       </div>
       <img class="food-photo" src="${item.image}" alt="${item.name}" loading="lazy" />
     </article>
-  `).join("") : `
+  `,
+        )
+        .join("")
+    : `
     <article class="menu-card search-result-card">
       <div class="menu-copy">
         <span class="badge muted">Sem resultado</span>
@@ -172,21 +310,28 @@ function paymentFee(subtotal) {
 
 function renderCart() {
   const cartItems = qs("#cartItems");
-  setText("#cartCount", `${state.cart.length} ${state.cart.length === 1 ? "item" : "itens"}`);
+  setText(
+    "#cartCount",
+    `${state.cart.length} ${state.cart.length === 1 ? "item" : "itens"}`,
+  );
 
   if (!state.cart.length) {
     cartItems.className = "cart-list empty";
     cartItems.textContent = "Sua sacola esta vazia.";
   } else {
     cartItems.className = "cart-list";
-    cartItems.innerHTML = state.cart.map((item, index) => `
+    cartItems.innerHTML = state.cart
+      .map(
+        (item, index) => `
       <div class="cart-item">
         <img class="cart-thumb" src="${item.image}" alt="" aria-hidden="true" />
         <span>${item.name}</span>
         <strong>${money.format(item.price)}</strong>
         <button aria-label="Remover ${item.name}" data-remove="${index}">x</button>
       </div>
-    `).join("");
+    `,
+      )
+      .join("");
   }
 
   qsa("[data-remove]").forEach((button) => {
@@ -208,11 +353,12 @@ function renderOrders() {
   const groups = [
     { name: "Novo", hint: "Confirmar" },
     { name: "Em preparo", hint: "Cozinha" },
-    { name: "Entrega", hint: "Rota" }
+    { name: "Entrega", hint: "Rota" },
   ];
-  qs("#ordersBoard").innerHTML = groups.map((group) => {
-    const groupOrders = orders.filter((order) => order.status === group.name);
-    return `
+  qs("#ordersBoard").innerHTML = groups
+    .map((group) => {
+      const groupOrders = orders.filter((order) => order.status === group.name);
+      return `
     <div class="order-column" data-order-status="${group.name}">
       <div class="column-heading">
         <div>
@@ -221,7 +367,9 @@ function renderOrders() {
         </div>
         <strong>${groupOrders.length}</strong>
       </div>
-      ${groupOrders.map((order) => `
+      ${groupOrders
+        .map(
+          (order) => `
         <article class="order-ticket ${order.priority ? "priority-ticket" : ""}" draggable="true" data-order-id="${order.id}">
           <div class="ticket-top">
             <strong>#${order.id}</strong>
@@ -240,9 +388,13 @@ function renderOrders() {
             </button>
           </div>
         </article>
-      `).join("")}
+      `,
+        )
+        .join("")}
     </div>
-  `}).join("");
+  `;
+    })
+    .join("");
 
   qsa(".order-ticket").forEach((ticket) => {
     ticket.addEventListener("pointerdown", (event) => {
@@ -252,7 +404,7 @@ function renderOrders() {
         startX: event.clientX,
         startY: event.clientY,
         source: ticket,
-        dragging: false
+        dragging: false,
       };
     });
 
@@ -263,7 +415,9 @@ function renderOrders() {
 
     ticket.addEventListener("dragend", () => {
       ticket.classList.remove("dragging");
-      qsa(".order-column").forEach((column) => column.classList.remove("drop-ready"));
+      qsa(".order-column").forEach((column) =>
+        column.classList.remove("drop-ready"),
+      );
     });
   });
 
@@ -279,7 +433,10 @@ function renderOrders() {
 
     column.addEventListener("drop", (event) => {
       event.preventDefault();
-      moveOrderToStatus(event.dataTransfer.getData("text/plain"), column.dataset.orderStatus);
+      moveOrderToStatus(
+        event.dataTransfer.getData("text/plain"),
+        column.dataset.orderStatus,
+      );
     });
   });
 }
@@ -288,6 +445,17 @@ function openOrderModal(orderId) {
   const order = orders.find((entry) => entry.id === orderId);
   if (!order) return;
   const nextStatus = nextOrderStatus(order.status);
+  const changeNote =
+    order.change === "Nao precisa"
+      ? "Sem troco para este pedido"
+      : `Troco solicitado para ${order.change}`;
+  const paymentIcon =
+    {
+      Pix: `<svg class="pix-payment-icon" viewBox="0 0 512 512" aria-hidden="true"><g fill="#4BB8A9" fill-rule="evenodd"><path d="M112.57 391.19c20.056 0 38.928-7.808 53.12-22l76.693-76.692c5.385-5.404 14.765-5.384 20.15 0l76.989 76.989c14.191 14.172 33.045 21.98 53.12 21.98h15.098l-97.138 97.139c-30.326 30.344-79.505 30.344-109.85 0l-97.415-97.416h9.232zm280.068-271.294c-20.056 0-38.929 7.809-53.12 22l-76.97 76.99c-5.551 5.53-14.6 5.568-20.15-.02l-76.711-76.693c-14.192-14.191-33.046-21.999-53.12-21.999h-9.234l97.416-97.416c30.344-30.344 79.523-30.344 109.867 0l97.138 97.138h-15.116z"></path><path d="M22.758 200.753l58.024-58.024h31.787c13.84 0 27.384 5.605 37.172 15.394l76.694 76.693c7.178 7.179 16.596 10.768 26.033 10.768 9.417 0 18.854-3.59 26.014-10.75l76.989-76.99c9.787-9.787 23.331-15.393 37.171-15.393h37.654l58.3 58.302c30.343 30.344 30.343 79.523 0 109.867l-58.3 58.303H392.64c-13.84 0-27.384-5.605-37.171-15.394l-76.97-76.99c-13.914-13.894-38.172-13.894-52.066.02l-76.694 76.674c-9.788 9.788-23.332 15.413-37.172 15.413H80.782L22.758 310.62c-30.344-30.345-30.344-79.524 0-109.868"></path></g></svg>`,
+      Cartao: `<svg viewBox="0 0 24 24" aria-hidden="true"><rect x="3" y="6" width="18" height="12" rx="2"></rect><path d="M3 10h18"></path></svg>`,
+      Dinheiro: `<svg viewBox="0 0 24 24" aria-hidden="true"><rect x="3" y="6" width="18" height="12" rx="2"></rect><circle cx="12" cy="12" r="3"></circle><path d="M6 9h2M16 15h2"></path></svg>`,
+    }[order.payment] ||
+    `<svg viewBox="0 0 24 24" aria-hidden="true"><rect x="3" y="6" width="18" height="12" rx="2"></rect></svg>`;
   qs("#orderDetailContent").innerHTML = `
     <div class="panel-heading order-detail-heading">
       <h2 id="orderDetailTitle">Pedido ${order.id}</h2>
@@ -299,34 +467,43 @@ function openOrderModal(orderId) {
         <span class="badge ${order.priority ? "" : "muted"}">${order.priority ? "Prioritario" : "Normal"}</span>
         <strong>${order.items}</strong>
         <small>Total ${money.format(order.total)}</small>
-      </div>
-    </div>
-    <div class="order-detail-client">
-      <span class="order-detail-avatar">${order.client.slice(0, 1)}</span>
-      <div>
-        <strong>${order.client}</strong>
-        <small>${order.phone}</small>
+        <em>${order.note}</em>
       </div>
     </div>
     <div class="order-detail-section">
-      <h3>Resumo</h3>
       <div class="order-detail-list">
-        <div><span>Item</span><strong>${order.items}</strong></div>
-        <div><span>Observacao</span><strong>${order.note}</strong></div>
+        <div>
+          <svg viewBox="0 0 24 24" aria-hidden="true"><path d="M12 12a4 4 0 1 0 0-8 4 4 0 0 0 0 8Z"></path><path d="M4 21a8 8 0 0 1 16 0"></path></svg>
+          <strong>${order.client}</strong>
+        </div>
+        <div>
+          <svg viewBox="0 0 24 24" aria-hidden="true"><path d="M22 16.9v3a2 2 0 0 1-2.2 2 19.8 19.8 0 0 1-8.6-3.1 19.5 19.5 0 0 1-6-6A19.8 19.8 0 0 1 2.1 4.2 2 2 0 0 1 4.1 2h3a2 2 0 0 1 2 1.7c.1 1 .4 2 .7 2.8a2 2 0 0 1-.4 2.1L8.1 9.9a16 16 0 0 0 6 6l1.3-1.3a2 2 0 0 1 2.1-.4c.9.3 1.8.6 2.8.7a2 2 0 0 1 1.7 2Z"></path></svg>
+          <strong>${order.phone}</strong>
+        </div>
+        <div>
+          <svg viewBox="0 0 24 24" aria-hidden="true"><path d="M12 21s7-6.1 7-12A7 7 0 0 0 5 9c0 5.9 7 12 7 12Z"></path><circle cx="12" cy="9" r="2.5"></circle></svg>
+          <strong>${order.address}</strong>
+        </div>
       </div>
-    </div>
-    <div class="order-detail-grid">
-      <div><span>Pagamento</span><strong>${order.payment}</strong></div>
-      <div><span>Fila</span><strong>${order.priority ? "Prioritaria" : "Normal"}</strong></div>
-      <div><span>Status</span><strong>${order.status}</strong></div>
-      <div><span>Total</span><strong>${money.format(order.total)}</strong></div>
     </div>
     <div class="order-detail-section">
-      <h3>Entrega</h3>
-      <div class="order-detail-list">
-        <div><span>Endereco</span><strong>${order.address}</strong></div>
-        <div><span>Alerta</span><strong>WhatsApp conectado</strong></div>
+      <div class="order-detail-list financial-list">
+        <div>
+          ${paymentIcon}
+          <strong>${order.payment}</strong>
+        </div>
+        <div>
+          <svg viewBox="0 0 24 24" aria-hidden="true"><path d="M12 3v18M17 7.5H9.5a3 3 0 0 0 0 6H14a3 3 0 0 1 0 6H6"></path></svg>
+          <strong>${money.format(order.total)}</strong>
+        </div>
       </div>
+      <p class="change-note">
+        <svg viewBox="0 0 24 24" aria-hidden="true">
+          <circle cx="12" cy="12" r="8"></circle>
+          <path d="M12 8v4M12 16h.01"></path>
+        </svg>
+        <span>${changeNote}</span>
+      </p>
     </div>
     <div class="order-detail-actions">
       <button class="button ghost full" data-whatsapp="${order.id}" type="button">Enviar WhatsApp</button>
@@ -359,7 +536,9 @@ function moveOrderToStatus(orderId, status) {
 
 function renderAdminMenu() {
   const source = state.menuLimited ? menu.slice(0, 6) : menu;
-  qs("#adminMenu").innerHTML = source.map((item) => `
+  qs("#adminMenu").innerHTML = source
+    .map(
+      (item) => `
     <div class="admin-item">
       <img src="${item.image}" alt="${item.name}" loading="lazy" />
       <span>
@@ -371,7 +550,9 @@ function renderAdminMenu() {
         <small>${item.priority ? "Prioritario" : "Regular"}</small>
       </span>
     </div>
-  `).join("");
+  `,
+    )
+    .join("");
 }
 
 function route() {
@@ -400,15 +581,25 @@ function route() {
 function updateTracking(cancelled = false) {
   const statuses = [
     ["Recebido", "O pedido foi recebido pelo estabelecimento."],
-    ["Em preparo", "O ByteTruck recebeu seu pedido e a cozinha ja comecou a preparar."],
-    ["Saiu para entrega", "O entregador foi alertado no WhatsApp e esta a caminho."],
-    ["Entregue", "Pedido concluido. O relatorio financeiro ja considera o metodo de pagamento."]
+    [
+      "Em preparo",
+      "O ByteTruck recebeu seu pedido e a cozinha ja comecou a preparar.",
+    ],
+    [
+      "Saiu para entrega",
+      "O entregador foi alertado no WhatsApp e esta a caminho.",
+    ],
+    [
+      "Entregue",
+      "Pedido concluido. O relatorio financeiro ja considera o metodo de pagamento.",
+    ],
   ];
 
   if (cancelled) {
     qs("#trackingStatus").textContent = "Cancelado";
-    qs("#trackingText").textContent = "O pedido foi cancelado e o estabelecimento recebeu o alerta.";
-    qsa("#timeline li").forEach((item) => item.className = "");
+    qs("#trackingText").textContent =
+      "O pedido foi cancelado e o estabelecimento recebeu o alerta.";
+    qsa("#timeline li").forEach((item) => (item.className = ""));
     showToast("Pedido cancelado e aviso enviado ao estabelecimento.");
     return;
   }
@@ -417,7 +608,12 @@ function updateTracking(cancelled = false) {
   qs("#trackingStatus").textContent = title;
   qs("#trackingText").textContent = text;
   qsa("#timeline li").forEach((item, index) => {
-    item.className = index < state.trackingStep ? "done" : index === state.trackingStep ? "current" : "";
+    item.className =
+      index < state.trackingStep
+        ? "done"
+        : index === state.trackingStep
+          ? "current"
+          : "";
   });
 }
 
@@ -438,19 +634,26 @@ function bindEvents() {
     const whatsappButton = event.target.closest("[data-whatsapp]");
     if (whatsappButton) {
       event.preventDefault();
-      showToast(`WhatsApp: alerta do pedido ${whatsappButton.dataset.whatsapp} enviado.`);
+      showToast(
+        `WhatsApp: alerta do pedido ${whatsappButton.dataset.whatsapp} enviado.`,
+      );
       return;
     }
 
     const moveButton = event.target.closest("[data-move-order]");
     if (moveButton) {
       event.preventDefault();
-      moveOrderToStatus(moveButton.dataset.moveOrder, moveButton.dataset.nextStatus);
+      moveOrderToStatus(
+        moveButton.dataset.moveOrder,
+        moveButton.dataset.nextStatus,
+      );
       closeOrderModal();
       return;
     }
 
-    if (event.target.closest("[data-close-order-modal], #orderDetailBackdrop")) {
+    if (
+      event.target.closest("[data-close-order-modal], #orderDetailBackdrop")
+    ) {
       event.preventDefault();
       closeOrderModal();
     }
@@ -477,7 +680,9 @@ function bindEvents() {
 
   qsa(".category-row button").forEach((button) => {
     button.addEventListener("click", () => {
-      qsa(".category-row button").forEach((entry) => entry.classList.remove("active"));
+      qsa(".category-row button").forEach((entry) =>
+        entry.classList.remove("active"),
+      );
       button.classList.add("active");
       state.filter = button.dataset.filter;
       renderMenu();
@@ -486,14 +691,21 @@ function bindEvents() {
 
   document.addEventListener("pointermove", (event) => {
     if (!activeOrderDrag) return;
-    const moved = Math.hypot(event.clientX - activeOrderDrag.startX, event.clientY - activeOrderDrag.startY);
+    const moved = Math.hypot(
+      event.clientX - activeOrderDrag.startX,
+      event.clientY - activeOrderDrag.startY,
+    );
     if (moved < 8) return;
     activeOrderDrag.dragging = true;
     activeOrderDrag.source.classList.add("dragging");
     document.body.classList.add("order-dragging");
     qsa(".order-column").forEach((column) => {
       const box = column.getBoundingClientRect();
-      const inside = event.clientX >= box.left && event.clientX <= box.right && event.clientY >= box.top && event.clientY <= box.bottom;
+      const inside =
+        event.clientX >= box.left &&
+        event.clientX <= box.right &&
+        event.clientY >= box.top &&
+        event.clientY <= box.bottom;
       column.classList.toggle("drop-ready", inside);
     });
   });
@@ -503,14 +715,18 @@ function bindEvents() {
     const drag = activeOrderDrag;
     activeOrderDrag = null;
     document.body.classList.remove("order-dragging");
-    qsa(".order-column").forEach((column) => column.classList.remove("drop-ready"));
+    qsa(".order-column").forEach((column) =>
+      column.classList.remove("drop-ready"),
+    );
     drag.source.classList.remove("dragging");
     if (!drag.dragging) {
       openOrderModal(drag.id);
       return;
     }
     event.preventDefault();
-    const target = document.elementFromPoint(event.clientX, event.clientY)?.closest("[data-order-status]");
+    const target = document
+      .elementFromPoint(event.clientX, event.clientY)
+      ?.closest("[data-order-status]");
     if (target) moveOrderToStatus(drag.id, target.dataset.orderStatus);
   });
 
@@ -519,7 +735,9 @@ function bindEvents() {
     renderSearchResults();
   });
 
-  qsa("input[name='payment']").forEach((input) => input.addEventListener("change", renderCart));
+  qsa("input[name='payment']").forEach((input) =>
+    input.addEventListener("change", renderCart),
+  );
 
   qs("#placeOrder").addEventListener("click", () => {
     if (!state.cart.length) {
@@ -535,7 +753,9 @@ function bindEvents() {
     state.cart = [];
     renderCart();
     closeCartModal();
-    showToast("Pedido criado. Stripe calculado e WhatsApp enviado ao parceiro.");
+    showToast(
+      "Pedido criado. Stripe calculado e WhatsApp enviado ao parceiro.",
+    );
     window.location.hash = "pedido";
   });
 
@@ -549,7 +769,9 @@ function bindEvents() {
 
   qsa("[data-admin-tab]").forEach((button) => {
     button.addEventListener("click", () => {
-      qsa("[data-admin-tab]").forEach((entry) => entry.classList.remove("active"));
+      qsa("[data-admin-tab]").forEach((entry) =>
+        entry.classList.remove("active"),
+      );
       qsa(".admin-tab").forEach((entry) => entry.classList.remove("active"));
       button.classList.add("active");
       qs(`#${button.dataset.adminTab}`).classList.add("active");
@@ -561,7 +783,11 @@ function bindEvents() {
     state.menuLimited = !state.menuLimited;
     renderMenu();
     renderAdminMenu();
-    showToast(state.menuLimited ? "Limite anti-escolha ativado." : "Cardapio completo liberado.");
+    showToast(
+      state.menuLimited
+        ? "Limite anti-escolha ativado."
+        : "Cardapio completo liberado.",
+    );
   });
 }
 
