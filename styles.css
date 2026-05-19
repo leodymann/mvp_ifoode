@@ -922,6 +922,7 @@ p { color: var(--muted); line-height: 1.5; }
 .pix-logo {
   width: 42px;
   height: 24px;
+  fill: #4bb8a9;
 }
 
 .compact-payments strong {
