@@ -1161,11 +1161,12 @@ p { color: var(--muted); line-height: 1.5; }
   display: grid;
   grid-template-columns: 268px minmax(0, 1fr);
   gap: 24px;
+  align-items: start;
 }
 
 .admin-side {
   position: sticky;
-  top: 92px;
+  top: 24px;
   align-self: start;
   display: grid;
   gap: 18px;
@@ -1392,11 +1393,6 @@ p { color: var(--muted); line-height: 1.5; }
   transition: border-color 0.16s ease, background 0.16s ease;
 }
 
-.order-column.drop-ready {
-  border-color: var(--brand);
-  background: #fff7f8;
-}
-
 .column-heading {
   display: flex;
   align-items: center;
@@ -1439,19 +1435,8 @@ p { color: var(--muted); line-height: 1.5; }
   border: 1px solid var(--line);
   border-radius: 12px;
   background: #fff;
-  cursor: grab;
+  cursor: pointer;
   box-shadow: none;
-  touch-action: none;
-  user-select: none;
-}
-
-.order-ticket.dragging {
-  opacity: 0.55;
-  cursor: grabbing;
-}
-
-body.order-dragging {
-  cursor: grabbing;
 }
 
 .priority-ticket {
@@ -1477,14 +1462,8 @@ body.order-dragging {
   grid-column: 1;
 }
 
-.drag-handle,
 .order-ticket .button {
   grid-column: 2;
-}
-
-.drag-handle {
-  grid-row: 1;
-  justify-self: end;
 }
 
 .order-ticket .button {
@@ -1555,12 +1534,6 @@ body.order-dragging {
 .whatsapp-icon-button:hover {
   color: #fff;
   background: #128c7e;
-}
-
-.drag-handle {
-  color: #b8b8b8;
-  font-weight: 900;
-  letter-spacing: 1px;
 }
 
 .status-chip {
@@ -1680,6 +1653,43 @@ body.order-dragging {
   font-weight: 800;
 }
 
+.order-items-list {
+  display: grid;
+  gap: 6px;
+  margin: -4px 0 16px;
+  padding: 10px;
+  border: 1px solid var(--line);
+  border-radius: 8px;
+  background: #fff;
+}
+
+.order-items-list div {
+  display: grid;
+  grid-template-columns: minmax(0, 1fr) auto;
+  gap: 8px;
+  align-items: center;
+  padding: 7px 0;
+  border-bottom: 1px solid var(--line);
+}
+
+.order-items-list div:last-child {
+  border-bottom: 0;
+}
+
+.order-items-list strong {
+  display: inline-flex;
+  align-items: center;
+  min-width: 0;
+  font-size: 13px;
+}
+
+.order-items-list em {
+  color: var(--muted);
+  font-size: 12px;
+  font-style: normal;
+  font-weight: 800;
+}
+
 .order-detail-section {
   margin-bottom: 16px;
 }
@@ -1746,6 +1756,29 @@ body.order-dragging {
   text-align: left;
 }
 
+.buyer-contact {
+  display: flex;
+  align-items: baseline;
+  gap: 8px;
+  min-width: 0;
+}
+
+.buyer-contact span {
+  overflow: hidden;
+  color: var(--ink);
+  font-size: 15px;
+  font-weight: 900;
+  text-overflow: ellipsis;
+  white-space: nowrap;
+}
+
+.buyer-contact small {
+  color: var(--muted);
+  font-size: 12px;
+  font-weight: 850;
+  white-space: nowrap;
+}
+
 .financial-list div:last-child {
   background: #fff0f1;
 }
@@ -1763,13 +1796,19 @@ body.order-dragging {
 .financial-list div {
   justify-items: center;
   align-content: center;
-  min-height: 78px;
+  min-height: 54px;
+  padding: 9px 10px;
   text-align: center;
 }
 
 .financial-list strong {
-  font-size: 13px;
+  font-size: 15px;
   text-align: center;
+}
+
+.financial-list div > svg {
+  width: 15px;
+  height: 15px;
 }
 
 .change-note {
@@ -1986,10 +2025,13 @@ body.public-active .mobile-cart-trigger {
 }
 
 .cart-symbol {
-  width: 22px;
-  height: 22px;
-  background: currentColor;
-  clip-path: polygon(22% 8%, 78% 8%, 86% 92%, 14% 92%);
+  width: 25px;
+  height: 25px;
+  fill: none;
+  stroke: currentColor;
+  stroke-linecap: round;
+  stroke-linejoin: round;
+  stroke-width: 2;
 }
 
 .cart-backdrop.show,
@@ -2236,11 +2278,7 @@ body.cart-modal-open .order-panel,
     background: #fff;
   }
   .order-ticket {
-    touch-action: auto;
     cursor: pointer;
-  }
-  .drag-handle {
-    display: none;
   }
   .ticket-meta {
     gap: 6px;

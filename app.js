@@ -79,6 +79,9 @@ const orders = [
     id: "BT-1048",
     client: "Marina",
     items: "Combo Truck",
+    itemList: [
+      { qty: 1, name: "Combo BBurguer", price: 44.9 },
+    ],
     status: "Em preparo",
     payment: "Pix",
     priority: true,
@@ -93,6 +96,9 @@ const orders = [
     id: "BT-1049",
     client: "Rafael",
     items: "Smash Byte",
+    itemList: [
+      { qty: 1, name: "Smash Byte", price: 32.9 },
+    ],
     status: "Novo",
     payment: "Cartao",
     priority: true,
@@ -107,6 +113,9 @@ const orders = [
     id: "BT-1050",
     client: "Duda",
     items: "Veggie Kernel",
+    itemList: [
+      { qty: 1, name: "Veggie Kernel", price: 34.9 },
+    ],
     status: "Entrega",
     payment: "Dinheiro",
     priority: false,
@@ -120,12 +129,17 @@ const orders = [
   {
     id: "BT-1051",
     client: "Caio",
-    items: "Batata Deploy",
+    items: "Batata Deploy + ByteBurguer + Refri",
+    itemList: [
+      { qty: 1, name: "Batata Deploy", price: 18.9 },
+      { qty: 1, name: "ByteBurguer", price: 32.9 },
+      { qty: 1, name: "Refri lata", price: 7.9 },
+    ],
     status: "Novo",
     payment: "Pix",
     priority: false,
     image: "cardapios/combo-bburguer-fritas.jpg",
-    total: 18.9,
+    total: 59.7,
     change: "Nao precisa",
     phone: "(11) 95555-1051",
     address: "Rua Cache, 88",
@@ -141,8 +155,6 @@ const state = {
   trackingStep: 1,
   menuLimited: true,
 };
-
-let activeOrderDrag = null;
 
 const mobileMenu = window.matchMedia("(max-width: 720px)");
 
@@ -370,10 +382,9 @@ function renderOrders() {
       ${groupOrders
         .map(
           (order) => `
-        <article class="order-ticket ${order.priority ? "priority-ticket" : ""}" draggable="true" data-order-id="${order.id}">
+        <article class="order-ticket ${order.priority ? "priority-ticket" : ""}" data-order-id="${order.id}">
           <div class="ticket-top">
             <strong>#${order.id}</strong>
-            <span class="drag-handle" aria-hidden="true">::</span>
           </div>
           <div class="ticket-main">
             <h3>${order.client}</h3>
@@ -397,46 +408,9 @@ function renderOrders() {
     .join("");
 
   qsa(".order-ticket").forEach((ticket) => {
-    ticket.addEventListener("pointerdown", (event) => {
+    ticket.addEventListener("click", (event) => {
       if (event.target.closest("button")) return;
-      activeOrderDrag = {
-        id: ticket.dataset.orderId,
-        startX: event.clientX,
-        startY: event.clientY,
-        source: ticket,
-        dragging: false,
-      };
-    });
-
-    ticket.addEventListener("dragstart", (event) => {
-      event.dataTransfer.setData("text/plain", ticket.dataset.orderId);
-      ticket.classList.add("dragging");
-    });
-
-    ticket.addEventListener("dragend", () => {
-      ticket.classList.remove("dragging");
-      qsa(".order-column").forEach((column) =>
-        column.classList.remove("drop-ready"),
-      );
-    });
-  });
-
-  qsa(".order-column").forEach((column) => {
-    column.addEventListener("dragover", (event) => {
-      event.preventDefault();
-      column.classList.add("drop-ready");
-    });
-
-    column.addEventListener("dragleave", () => {
-      column.classList.remove("drop-ready");
-    });
-
-    column.addEventListener("drop", (event) => {
-      event.preventDefault();
-      moveOrderToStatus(
-        event.dataTransfer.getData("text/plain"),
-        column.dataset.orderStatus,
-      );
+      openOrderModal(ticket.dataset.orderId);
     });
   });
 }
@@ -449,6 +423,25 @@ function openOrderModal(orderId) {
     order.change === "Nao precisa"
       ? "Sem troco para este pedido"
       : `Troco solicitado para ${order.change}`;
+  const orderItems = order.itemList || [
+    { qty: 1, name: order.items, price: order.total },
+  ];
+  const hasManyItems = orderItems.length > 2;
+  const itemSummary = hasManyItems
+    ? `${orderItems.length} itens no pedido`
+    : order.items;
+  const itemListMarkup = hasManyItems
+    ? `<div class="order-items-list">${orderItems
+        .map(
+          (item) => `
+        <div>
+          <strong>${item.name}</strong>
+          <em>${money.format(item.price)}</em>
+        </div>
+      `,
+        )
+        .join("")}</div>`
+    : "";
   const paymentIcon =
     {
       Pix: `<svg class="pix-payment-icon" viewBox="0 0 512 512" aria-hidden="true"><g fill="#4BB8A9" fill-rule="evenodd"><path d="M112.57 391.19c20.056 0 38.928-7.808 53.12-22l76.693-76.692c5.385-5.404 14.765-5.384 20.15 0l76.989 76.989c14.191 14.172 33.045 21.98 53.12 21.98h15.098l-97.138 97.139c-30.326 30.344-79.505 30.344-109.85 0l-97.415-97.416h9.232zm280.068-271.294c-20.056 0-38.929 7.809-53.12 22l-76.97 76.99c-5.551 5.53-14.6 5.568-20.15-.02l-76.711-76.693c-14.192-14.191-33.046-21.999-53.12-21.999h-9.234l97.416-97.416c30.344-30.344 79.523-30.344 109.867 0l97.138 97.138h-15.116z"></path><path d="M22.758 200.753l58.024-58.024h31.787c13.84 0 27.384 5.605 37.172 15.394l76.694 76.693c7.178 7.179 16.596 10.768 26.033 10.768 9.417 0 18.854-3.59 26.014-10.75l76.989-76.99c9.787-9.787 23.331-15.393 37.171-15.393h37.654l58.3 58.302c30.343 30.344 30.343 79.523 0 109.867l-58.3 58.303H392.64c-13.84 0-27.384-5.605-37.171-15.394l-76.97-76.99c-13.914-13.894-38.172-13.894-52.066.02l-76.694 76.674c-9.788 9.788-23.332 15.413-37.172 15.413H80.782L22.758 310.62c-30.344-30.345-30.344-79.524 0-109.868"></path></g></svg>`,
@@ -465,20 +458,20 @@ function openOrderModal(orderId) {
       <img src="${order.image}" alt="${order.items}" />
       <div>
         <span class="badge ${order.priority ? "" : "muted"}">${order.priority ? "Prioritario" : "Normal"}</span>
-        <strong>${order.items}</strong>
+        <strong>${itemSummary}</strong>
         <small>Total ${money.format(order.total)}</small>
         <em>${order.note}</em>
       </div>
     </div>
+    ${itemListMarkup}
     <div class="order-detail-section">
       <div class="order-detail-list">
         <div>
-          <svg viewBox="0 0 24 24" aria-hidden="true"><path d="M12 12a4 4 0 1 0 0-8 4 4 0 0 0 0 8Z"></path><path d="M4 21a8 8 0 0 1 16 0"></path></svg>
-          <strong>${order.client}</strong>
-        </div>
-        <div>
           <svg viewBox="0 0 24 24" aria-hidden="true"><path d="M22 16.9v3a2 2 0 0 1-2.2 2 19.8 19.8 0 0 1-8.6-3.1 19.5 19.5 0 0 1-6-6A19.8 19.8 0 0 1 2.1 4.2 2 2 0 0 1 4.1 2h3a2 2 0 0 1 2 1.7c.1 1 .4 2 .7 2.8a2 2 0 0 1-.4 2.1L8.1 9.9a16 16 0 0 0 6 6l1.3-1.3a2 2 0 0 1 2.1-.4c.9.3 1.8.6 2.8.7a2 2 0 0 1 1.7 2Z"></path></svg>
-          <strong>${order.phone}</strong>
+          <strong class="buyer-contact">
+            <span>${order.client}</span>
+            <small>${order.phone}</small>
+          </strong>
         </div>
         <div>
           <svg viewBox="0 0 24 24" aria-hidden="true"><path d="M12 21s7-6.1 7-12A7 7 0 0 0 5 9c0 5.9 7 12 7 12Z"></path><circle cx="12" cy="9" r="2.5"></circle></svg>
@@ -687,47 +680,6 @@ function bindEvents() {
       state.filter = button.dataset.filter;
       renderMenu();
     });
-  });
-
-  document.addEventListener("pointermove", (event) => {
-    if (!activeOrderDrag) return;
-    const moved = Math.hypot(
-      event.clientX - activeOrderDrag.startX,
-      event.clientY - activeOrderDrag.startY,
-    );
-    if (moved < 8) return;
-    activeOrderDrag.dragging = true;
-    activeOrderDrag.source.classList.add("dragging");
-    document.body.classList.add("order-dragging");
-    qsa(".order-column").forEach((column) => {
-      const box = column.getBoundingClientRect();
-      const inside =
-        event.clientX >= box.left &&
-        event.clientX <= box.right &&
-        event.clientY >= box.top &&
-        event.clientY <= box.bottom;
-      column.classList.toggle("drop-ready", inside);
-    });
-  });
-
-  document.addEventListener("pointerup", (event) => {
-    if (!activeOrderDrag) return;
-    const drag = activeOrderDrag;
-    activeOrderDrag = null;
-    document.body.classList.remove("order-dragging");
-    qsa(".order-column").forEach((column) =>
-      column.classList.remove("drop-ready"),
-    );
-    drag.source.classList.remove("dragging");
-    if (!drag.dragging) {
-      openOrderModal(drag.id);
-      return;
-    }
-    event.preventDefault();
-    const target = document
-      .elementFromPoint(event.clientX, event.clientY)
-      ?.closest("[data-order-status]");
-    if (target) moveOrderToStatus(drag.id, target.dataset.orderStatus);
   });
 
   qs("#searchInput").addEventListener("input", (event) => {
