@@ -154,6 +154,7 @@ const state = {
   searchQuery: "",
   trackingStep: 1,
   menuLimited: true,
+  cartStep: 0,
 };
 
 const mobileMenu = window.matchMedia("(max-width: 720px)");
@@ -162,6 +163,11 @@ const money = new Intl.NumberFormat("pt-BR", {
   style: "currency",
   currency: "BRL",
 });
+const menuCategoryLabels = {
+  combo: "Burguers e combos",
+  veg: "Sem carne",
+  side: "Acompanhamentos",
+};
 const qs = (selector) => document.querySelector(selector);
 const qsa = (selector) => [...document.querySelectorAll(selector)];
 const setText = (selector, value) => {
@@ -171,14 +177,30 @@ const setText = (selector, value) => {
 
 function showToast(message) {
   const toast = qs("#toast");
-  toast.textContent = message;
-  toast.classList.add("show");
-  window.setTimeout(() => toast.classList.remove("show"), 3200);
+  window.clearTimeout(showToast.timer);
+  toast.classList.remove("show");
+  toast.innerHTML = `
+    <span class="toast-icon" aria-hidden="true">
+      <svg viewBox="0 0 24 24">
+        <path d="m5 12.5 4 4L19 7"></path>
+      </svg>
+    </span>
+    <span class="toast-message">${message}</span>
+    <span class="toast-progress" aria-hidden="true"></span>
+  `;
+  window.requestAnimationFrame(() => {
+    window.requestAnimationFrame(() => toast.classList.add("show"));
+  });
+  showToast.timer = window.setTimeout(() => {
+    toast.classList.remove("show");
+  }, 3400);
 }
 
 function openCartModal() {
   const panel = qs(".order-panel");
   const backdrop = qs("#cartBackdrop");
+  state.cartStep = Math.min(state.cartStep, cartSteps.length - 1);
+  renderCartStep();
   if (panel) {
     panel.classList.add("open");
     panel.setAttribute("aria-modal", "true");
@@ -198,6 +220,13 @@ function closeCartModal() {
   }
   if (backdrop) backdrop.classList.remove("show");
   document.body.classList.remove("cart-modal-open");
+}
+
+function clearCart() {
+  state.cart = [];
+  state.cartStep = 0;
+  renderCart();
+  closeCartModal();
 }
 
 function showPopup(id, storageKey) {
@@ -236,13 +265,16 @@ function renderMenu() {
           (item) => `
     <article class="menu-card ${item.recommended ? "featured-menu-card" : ""}">
       <div class="menu-copy">
-        <span class="badge ${item.priority ? "" : "muted"}">${item.priority ? "Prioritario" : "Regular"}</span>
+        <div class="menu-badges">
+          ${item.recommended ? "<span class=\"badge live\">Mais pedido</span>" : ""}
+          <span class="badge ${item.priority ? "" : "muted"}">${item.priority ? "Prioritario" : "Regular"}</span>
+        </div>
         <div class="menu-meta">
           <strong>${item.name}</strong>
           <span>${money.format(item.price)}</span>
         </div>
         <p>${item.description}</p>
-        <button class="button primary" data-add="${item.id}">${item.recommended ? "Pedir este" : "Pedir"}</button>
+        <button class="button primary" data-add="${item.id}">${item.recommended ? "Pedir o mais vendido" : "Adicionar"}</button>
       </div>
       <img class="food-photo" src="${item.image}" alt="${item.name}" loading="lazy" />
     </article>
@@ -259,17 +291,26 @@ function renderMenu() {
       <div class="food-art" aria-hidden="true"></div>
     </article>
   `;
+}
 
-  qsa("[data-add]").forEach((button) => {
-    button.addEventListener("click", () => {
-      const item = menu.find(
-        (entry) => entry.id === Number(button.dataset.add),
-      );
-      state.cart.push(item);
-      renderCart();
-      showToast(`${item.name} adicionado a sacola.`);
-    });
-  });
+function addMenuItemToCart(itemId) {
+  const item = menu.find((entry) => entry.id === Number(itemId));
+  if (!item) return;
+  state.cart.push(item);
+  renderCart();
+  showToast(`${item.name} adicionado a sacola.`);
+}
+
+function removeOneCartItem(itemId) {
+  const index = state.cart.findIndex((item) => item.id === Number(itemId));
+  if (index < 0) return;
+  state.cart.splice(index, 1);
+  renderCart();
+}
+
+function removeAllCartItems(itemId) {
+  state.cart = state.cart.filter((item) => item.id !== Number(itemId));
+  renderCart();
 }
 
 function renderSearchResults() {
@@ -320,8 +361,25 @@ function paymentFee(subtotal) {
   return 0;
 }
 
+const cartSteps = ["items", "delivery", "payment"];
+
+function renderCartStep() {
+  const activeStep = cartSteps[state.cartStep] || "items";
+  qsa("[data-cart-step]").forEach((step) => {
+    step.classList.toggle("active", step.dataset.cartStep === activeStep);
+  });
+  const total = qs("#total")?.textContent || "R$ 0,00";
+  const labels = {
+    items: "Continuar",
+    delivery: "Ir para pagamento",
+    payment: `Revisar pedido - ${total}`,
+  };
+  setText("#placeOrder", labels[activeStep] || "Continuar");
+}
+
 function renderCart() {
   const cartItems = qs("#cartItems");
+  document.body.classList.toggle("cart-has-items", state.cart.length > 0);
   setText(
     "#cartCount",
     `${state.cart.length} ${state.cart.length === 1 ? "item" : "itens"}`,
@@ -331,34 +389,80 @@ function renderCart() {
     cartItems.className = "cart-list empty";
     cartItems.textContent = "Sua sacola esta vazia.";
   } else {
+    const groupedItems = state.cart.reduce((groups, item) => {
+      if (!groups.has(item.id)) groups.set(item.id, { item, quantity: 0 });
+      groups.get(item.id).quantity += 1;
+      return groups;
+    }, new Map());
+
     cartItems.className = "cart-list";
-    cartItems.innerHTML = state.cart
+    cartItems.innerHTML = [...groupedItems.values()]
       .map(
-        (item, index) => `
+        ({ item, quantity }) => `
       <div class="cart-item">
         <img class="cart-thumb" src="${item.image}" alt="" aria-hidden="true" />
-        <span>${item.name}</span>
-        <strong>${money.format(item.price)}</strong>
-        <button aria-label="Remover ${item.name}" data-remove="${index}">x</button>
+        <div class="cart-item-copy">
+          <strong>${item.name}</strong>
+          <span>${item.description}</span>
+        </div>
+        <div class="cart-item-side">
+          <strong>${money.format(item.price * quantity)}</strong>
+          <div class="cart-item-controls" aria-label="Quantidade de ${item.name}">
+            <button aria-label="Diminuir ${item.name}" data-cart-decrease="${item.id}" type="button">-</button>
+            <span>${quantity}</span>
+            <button aria-label="Adicionar ${item.name}" data-cart-increase="${item.id}" type="button">+</button>
+            <button class="cart-trash" aria-label="Remover ${item.name} da sacola" data-cart-delete="${item.id}" type="button">
+              <svg viewBox="0 0 24 24" aria-hidden="true">
+                <path d="M4 7h16"></path>
+                <path d="M9 7V5h6v2"></path>
+                <path d="M7 7l1 13h8l1-13"></path>
+                <path d="M10 11v5"></path>
+                <path d="M14 11v5"></path>
+              </svg>
+            </button>
+          </div>
+        </div>
       </div>
     `,
       )
       .join("");
   }
 
-  qsa("[data-remove]").forEach((button) => {
-    button.addEventListener("click", () => {
-      state.cart.splice(Number(button.dataset.remove), 1);
-      renderCart();
-    });
+  qsa("[data-cart-decrease]").forEach((button) => {
+    button.addEventListener("click", () => removeOneCartItem(button.dataset.cartDecrease));
+  });
+
+  qsa("[data-cart-increase]").forEach((button) => {
+    button.addEventListener("click", () => addMenuItemToCart(button.dataset.cartIncrease));
+  });
+
+  qsa("[data-cart-delete]").forEach((button) => {
+    button.addEventListener("click", () => removeAllCartItems(button.dataset.cartDelete));
   });
 
   const subtotal = state.cart.reduce((sum, item) => sum + item.price, 0);
+  const deliveryFee = state.cart.length ? 5.99 : 0;
   const fee = paymentFee(subtotal);
+  const total = subtotal + fee + deliveryFee;
   setText("#subtotal", money.format(subtotal));
   setText("#fee", money.format(fee));
-  setText("#total", money.format(subtotal + fee));
+  setText("#total", money.format(total));
+  setText(
+    "#cartFooterTotal",
+    `${money.format(total)} / ${state.cart.length} ${
+      state.cart.length === 1 ? "item" : "itens"
+    }`,
+  );
   setText("#mobileCartCount", state.cart.length);
+  setText(
+    "#mobileCartTotal",
+    `${money.format(total)} / ${state.cart.length} ${
+      state.cart.length === 1 ? "item" : "itens"
+    }`,
+  );
+  const mobileThumb = qs("#mobileCartThumb");
+  if (mobileThumb && state.cart[0]) mobileThumb.src = state.cart[0].image;
+  renderCartStep();
 }
 
 function renderOrders() {
@@ -499,9 +603,14 @@ function openOrderModal(orderId) {
       </p>
     </div>
     <div class="order-detail-actions">
-      <button class="button ghost full" data-whatsapp="${order.id}" type="button">Enviar WhatsApp</button>
-      ${nextStatus ? `<button class="button ghost full" data-move-order="${order.id}" data-next-status="${nextStatus}" type="button">Mover para ${nextStatus}</button>` : ""}
-      <button class="button primary full" data-close-order-modal type="button">Ok</button>
+      <button class="button ghost modal-whatsapp-action" data-whatsapp="${order.id}" type="button">
+        <svg viewBox="0 0 448 512" aria-hidden="true">
+          <path d="M380.9 97.1C339 55.1 283.2 32 223.9 32 101 32 1 132 1 255c0 39.3 10.2 77.6 29.6 111.4L0 480l116.1-30.5C148.7 467.4 185.5 477 223.8 477h.1c122.9 0 222.9-100 222.9-223 0-59.5-23.2-115.3-65.9-156.9zM223.9 439.6c-34.2 0-67.7-9.2-97-26.6l-7-4.2-68.8 18.1 18.4-67.1-4.6-7.3C46.8 323.7 37.3 289.9 37.3 255 37.3 152 120.9 68.4 223.9 68.4c49.8 0 96.7 19.4 132 54.7 35.9 35.8 55.6 82.8 55.6 132.9 0 103-83.7 183.6-187.6 183.6zm101.7-138c-5.6-2.8-33-16.3-38.1-18.1-5.1-1.9-8.8-2.8-12.5 2.8-3.7 5.6-14.3 18.1-17.6 21.8-3.2 3.7-6.5 4.2-12.1 1.4-33-16.5-54.7-29.5-76.5-66.9-5.8-10 5.8-9.3 16.5-30.9 1.8-3.7.9-6.9-.5-9.7-1.4-2.8-12.5-30.1-17.1-41.2-4.5-10.8-9.1-9.3-12.5-9.5-3.2-.2-6.9-.2-10.6-.2s-9.7 1.4-14.8 6.9c-5.1 5.6-19.4 19-19.4 46.3s19.9 53.7 22.7 57.4c2.8 3.7 39.1 59.7 94.8 83.8 35.2 15.2 49 16.5 66.6 13.9 10.7-1.6 33-13.5 37.6-26.5 4.6-13 4.6-24.1 3.2-26.5-1.3-2.4-5-3.8-10.6-6.6z"></path>
+        </svg>
+        Enviar
+      </button>
+      ${nextStatus ? `<button class="button ghost modal-move-action" data-move-order="${order.id}" data-next-status="${nextStatus}" type="button">Mover para ${nextStatus}</button>` : ""}
+      <button class="button primary modal-ok-action" data-close-order-modal type="button">Ok</button>
     </div>
   `;
   qs("#orderDetailModal").classList.add("show");
@@ -529,22 +638,49 @@ function moveOrderToStatus(orderId, status) {
 
 function renderAdminMenu() {
   const source = state.menuLimited ? menu.slice(0, 6) : menu;
-  qs("#adminMenu").innerHTML = source
-    .map(
-      (item) => `
-    <div class="admin-item">
-      <img src="${item.image}" alt="${item.name}" loading="lazy" />
-      <span>
-        <strong>${item.name}</strong>
-        <small>${item.description}</small>
-      </span>
-      <span>
-        <strong>${money.format(item.price)}</strong>
-        <small>${item.priority ? "Prioritario" : "Regular"}</small>
-      </span>
-    </div>
-  `,
-    )
+  const categories = [...new Set(source.map((item) => item.tag))];
+  qs("#toggleMenuLimit").textContent = state.menuLimited
+    ? "Ver cardapio completo"
+    : "Mostrar vitrine curta";
+  qs("#adminMenu").innerHTML = categories
+    .map((category) => {
+      const categoryItems = source.filter((item) => item.tag === category);
+      return `
+        <section class="admin-menu-section">
+          <div class="admin-menu-section-head">
+            <h3>${menuCategoryLabels[category] || "Outros itens"}</h3>
+            <span>${categoryItems.length} itens</span>
+          </div>
+          <div class="admin-menu-grid">
+            ${categoryItems
+              .map(
+                (item) => `
+              <article class="partner-menu-card ${item.recommended ? "is-highlighted" : ""}">
+                <img src="${item.image}" alt="${item.name}" loading="lazy" />
+                <div class="partner-menu-copy">
+                  <div>
+                    <strong>${item.name}</strong>
+                    <p>${item.description}</p>
+                  </div>
+                  <div class="partner-menu-tags">
+                    ${item.recommended ? "<span>Mais pedido</span>" : ""}
+                    ${item.priority ? "<span>Prioritario</span>" : "<span>Regular</span>"}
+                    <span>Disponivel</span>
+                  </div>
+                </div>
+                <div class="partner-menu-side">
+                  <strong>${money.format(item.price)}</strong>
+                  <button class="button ghost small" type="button">Editar</button>
+                  <button class="menu-pause-button" type="button">Pausar</button>
+                </div>
+              </article>
+            `,
+              )
+              .join("")}
+          </div>
+        </section>
+      `;
+    })
     .join("");
 }
 
@@ -553,21 +689,29 @@ function route() {
   qsa(".view").forEach((view) => view.classList.remove("active"));
   document.body.classList.remove("public-active");
   document.body.classList.remove("admin-active");
+  document.body.classList.remove("store-cart-active");
+  qsa("[data-nav-route]").forEach((link) => link.classList.remove("active"));
 
   if (hash === "admin") {
     qs("#admin-view").classList.add("active");
     document.body.classList.add("admin-active");
+    qs("[data-nav-route='partner']")?.classList.add("active");
   } else if (hash === "pedido") {
     qs("#tracking-view").classList.add("active");
+    qs("[data-nav-route='order']")?.classList.add("active");
   } else if (hash === "pesquisa") {
     qs("#search-view").classList.add("active");
+    qs("[data-nav-route='search']")?.classList.add("active");
     window.setTimeout(() => qs("#searchInput")?.focus(), 80);
   } else if (hash === "ByteTruck/Catalogo") {
     qs("#public-view").classList.add("active");
     document.body.classList.add("public-active");
+    document.body.classList.add("store-cart-active");
+    qs("[data-nav-route='home']")?.classList.add("active");
     window.setTimeout(() => showPopup("#promoPopup", "storePromoSeen"), 450);
   } else {
     qs("#home-view").classList.add("active");
+    qs("[data-nav-route='home']")?.classList.add("active");
   }
 }
 
@@ -575,11 +719,11 @@ function updateTracking(cancelled = false) {
   const statuses = [
     ["Recebido", "O pedido foi recebido pelo estabelecimento."],
     [
-      "Em preparo",
+      "Preparado",
       "O ByteTruck recebeu seu pedido e a cozinha ja comecou a preparar.",
     ],
     [
-      "Saiu para entrega",
+      "Saindo para entrega",
       "O entregador foi alertado no WhatsApp e esta a caminho.",
     ],
     [
@@ -589,17 +733,17 @@ function updateTracking(cancelled = false) {
   ];
 
   if (cancelled) {
+    qs("#tracking-view")?.setAttribute("data-tracking-step", "cancelled");
     qs("#trackingStatus").textContent = "Cancelado";
-    qs("#trackingText").textContent =
-      "O pedido foi cancelado e o estabelecimento recebeu o alerta.";
     qsa("#timeline li").forEach((item) => (item.className = ""));
+    setText("#advanceOrder", "Pedido Recebido");
     showToast("Pedido cancelado e aviso enviado ao estabelecimento.");
     return;
   }
 
   const [title, text] = statuses[state.trackingStep];
+  qs("#tracking-view")?.setAttribute("data-tracking-step", String(state.trackingStep));
   qs("#trackingStatus").textContent = title;
-  qs("#trackingText").textContent = text;
   qsa("#timeline li").forEach((item, index) => {
     item.className =
       index < state.trackingStep
@@ -608,6 +752,13 @@ function updateTracking(cancelled = false) {
           ? "current"
           : "";
   });
+  const nextLabels = [
+    "Pedido em Preparo",
+    "Saindo para Entrega",
+    "Pedido Entregue",
+    "Pedido Entregue",
+  ];
+  setText("#advanceOrder", nextLabels[state.trackingStep] || "Pedido Recebido");
 }
 
 function bindEvents() {
@@ -620,6 +771,16 @@ function bindEvents() {
     }
 
     if (event.target.closest("#closeCart, #cartBackdrop, #continueShopping")) {
+      event.preventDefault();
+      closeCartModal();
+    }
+
+    if (event.target.closest("#clearCart")) {
+      event.preventDefault();
+      clearCart();
+    }
+
+    if (event.target.closest("#cartBack")) {
       event.preventDefault();
       closeCartModal();
     }
@@ -665,6 +826,12 @@ function bindEvents() {
       showToast("Combo BBurguer adicionado a sacola.");
     }
 
+    const addButton = event.target.closest("[data-add]");
+    if (addButton) {
+      event.preventDefault();
+      addMenuItemToCart(addButton.dataset.add);
+    }
+
     if (event.target.closest("[data-store-disabled]")) {
       event.preventDefault();
       showToast("Loja demonstrativa. No MVP, apenas ByteTruck esta ativa.");
@@ -697,9 +864,10 @@ function bindEvents() {
       return;
     }
 
-    const quotaLeft = qs("#quotaLeft");
-    if (quotaLeft && qs("#priorityToggle").checked) {
-      quotaLeft.textContent = Math.max(0, Number(quotaLeft.textContent) - 1);
+    if (state.cartStep < cartSteps.length - 1) {
+      state.cartStep += 1;
+      renderCartStep();
+      return;
     }
 
     state.cart = [];
@@ -748,6 +916,7 @@ renderSearchResults();
 renderCart();
 renderOrders();
 renderAdminMenu();
+updateTracking(false);
 bindEvents();
 route();
 
