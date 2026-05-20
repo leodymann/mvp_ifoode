@@ -343,10 +343,6 @@
               class="cart-section cart-step active"
               data-cart-step="payment"
             >
-              <div class="payment-step-head">
-                <h3>Pagamento</h3>
-                <span>Taxa apenas para pagamento pelo site</span>
-              </div>
               <div class="payment-stack">
                 <fieldset class="field-group compact-payments">
                   <legend>Forma de pagamento</legend>
@@ -418,7 +414,7 @@
                   </div>
                 </div>
                 <p class="notice">
-                  Dinheiro nao tem taxa. Pix: 1,99%. Cartao: 4,99% + R$ 0,49.
+                  Dinheiro não tem taxa. Pix: 1,99%. Cartão: 4,99% + R$ 0,49.
                 </p>
               </div>
             </section>
@@ -566,29 +562,23 @@
                 data-admin-tab="orders"
                 data-admin-title="Pedidos"
               >
-                <svg viewBox="0 0 24 24" aria-hidden="true">
-                  <path d="M7 7h10M7 12h10M7 17h6"></path>
-                  <rect x="4" y="3" width="16" height="18" rx="3"></rect>
-                </svg>
+                <i class="fi fi-rr-receipt"></i>
                 <span>Pedidos</span>
               </button>
               <button data-admin-tab="menu" data-admin-title="Cardapio">
-                <svg viewBox="0 0 24 24" aria-hidden="true">
-                  <path d="M5 7h14M5 12h14M5 17h10"></path>
-                </svg>
+                <i class="fi fi-rs-search-alt"></i>
                 <span>Cardapio</span>
               </button>
+              <button data-admin-tab="tables" data-admin-title="Comandas">
+                <i class="fi fi-rs-ticket"></i>
+                <span>Comandas</span>
+              </button>
               <button data-admin-tab="finance" data-admin-title="Financeiro">
-                <svg viewBox="0 0 24 24" aria-hidden="true">
-                  <path d="M4 19h16M7 16V9M12 16V5M17 16v-4"></path>
-                </svg>
+                <i class="fi fi-rs-bank"></i>
                 <span>Financeiro</span>
               </button>
               <button data-admin-tab="campaigns" data-admin-title="Campanhas">
-                <svg viewBox="0 0 24 24" aria-hidden="true">
-                  <path d="M4 13v-2l13-5v12L4 13Z"></path>
-                  <path d="M7 14l2 5"></path>
-                </svg>
+                <i class="fi fi-rs-megaphone"></i>
                 <span>Campanhas</span>
               </button>
               <button data-admin-tab="metrics" data-admin-title="Metricas">
@@ -653,6 +643,121 @@
                   </button>
                 </div>
                 <div id="adminMenu" class="admin-menu-catalog"></div>
+              </div>
+            </section>
+
+            <section class="admin-tab" id="tables">
+              <div class="waiter-command-shell">
+                <section class="panel table-command-panel">
+                  <div class="panel-heading waiter-heading">
+                    <div>
+                      <span class="eyebrow">Salao</span>
+                      <h2>Comandas por mesa</h2>
+                    </div>
+                    <button class="button ghost small" type="button">
+                      Nova comanda
+                    </button>
+                  </div>
+
+                  <div class="table-command-grid">
+                    <article class="table-command-card is-open">
+                      <div class="command-head">
+                        <div>
+                          <span>Mesa 04</span>
+                          <strong>Rafael + 3</strong>
+                        </div>
+                        <em>Aberta</em>
+                      </div>
+                      <div class="command-items">
+                        <span>2x Combo BBurguer</span>
+                        <span>1x Batata Deploy</span>
+                        <span>2x Refrigerante lata</span>
+                      </div>
+                      <div class="command-foot">
+                        <strong>R$ 108,70</strong>
+                        <button class="button primary small" type="button">
+                          Adicionar
+                        </button>
+                      </div>
+                    </article>
+
+                    <article class="table-command-card is-waiting">
+                      <div class="command-head">
+                        <div>
+                          <span>Mesa 07</span>
+                          <strong>Marina + 1</strong>
+                        </div>
+                        <em>Pagamento</em>
+                      </div>
+                      <div class="command-items">
+                        <span>1x Smash Byte</span>
+                        <span>1x Milkshake</span>
+                      </div>
+                      <div class="command-foot">
+                        <strong>R$ 54,90</strong>
+                        <button class="button ghost small" type="button">
+                          Fechar
+                        </button>
+                      </div>
+                    </article>
+
+                    <article class="table-command-card is-open">
+                      <div class="command-head">
+                        <div>
+                          <span>Mesa 12</span>
+                          <strong>Joao + 2</strong>
+                        </div>
+                        <em>Cozinha</em>
+                      </div>
+                      <div class="command-items">
+                        <span>3x ByteBurger</span>
+                        <span>1x Onion rings</span>
+                      </div>
+                      <div class="command-foot">
+                        <strong>R$ 123,80</strong>
+                        <button class="button primary small" type="button">
+                          Adicionar
+                        </button>
+                      </div>
+                    </article>
+
+                    <article class="table-command-card is-free">
+                      <div class="command-head">
+                        <div>
+                          <span>Mesa 15</span>
+                          <strong>Livre</strong>
+                        </div>
+                        <em>Sem consumo</em>
+                      </div>
+                      <p>Abra uma comanda quando o cliente sentar.</p>
+                      <div class="command-foot">
+                        <strong>R$ 0,00</strong>
+                        <button class="button ghost small" type="button">
+                          Abrir
+                        </button>
+                      </div>
+                    </article>
+                  </div>
+                </section>
+
+                <aside class="panel waiter-side-panel">
+                  <div>
+                    <span class="eyebrow">Fila do garcom</span>
+                    <h2>Chamados</h2>
+                  </div>
+                  <div class="waiter-call urgent">
+                    <strong>Mesa 04</strong>
+                    <span>Adicionar ketchup e guardanapos</span>
+                  </div>
+                  <div class="waiter-call">
+                    <strong>Mesa 07</strong>
+                    <span>Cliente pediu fechamento da conta</span>
+                  </div>
+                  <div class="waiter-total">
+                    <span>Em aberto</span>
+                    <strong>R$ 287,40</strong>
+                  </div>
+                </aside>
               </div>
             </section>
 
