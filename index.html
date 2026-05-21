@@ -68,6 +68,27 @@
                 <p>ByteTruck - burger + fritas</p>
               </div>
             </a>
+            <a class="feed-card" href="#SliceByte/Catalogo">
+              <img src="cardapios/pepperoni-pizza.jpg" alt="Pizza pepperoni" />
+              <div>
+                <h2>Pizza pepperoni</h2>
+                <p>Slice Byte</p>
+              </div>
+            </a>
+            <a class="feed-card" href="#SushiKernel/Catalogo">
+              <img src="cardapios/sushi-10peças.jpg" alt="Sushi variado" />
+              <div>
+                <h2>Sushi Kernel 10</h2>
+                <p>Sushi Kernel</p>
+              </div>
+            </a>
+            <a class="feed-card" href="#DrinkHub/Catalogo">
+              <img src="cardapios/copao-450ml(coca-cola).jpg" alt="Copao Coca-Cola" />
+              <div>
+                <h2>Copao Coca-Cola</h2>
+                <p>DrinkHub</p>
+              </div>
+            </a>
             <a class="feed-card" href="#ByteTruck/Catalogo">
               <img src="cardapios/ByteBurguer.jpg" alt="ByteBurguer" />
               <div>
@@ -106,43 +127,10 @@
           <div class="section-heading compact">
             <div>
               <h2>Lojas prioritarias</h2>
-              <p>Top 3 do momento para evitar excesso de escolha.</p>
+              <p>Poucas lojas ativas para evitar excesso de escolha.</p>
             </div>
           </div>
-          <div class="store-list">
-            <a class="store-card" href="#ByteTruck/Catalogo">
-              <img src="cardapios/fachada.jpg" alt="Fachada ByteTruck" />
-              <div>
-                <strong>ByteTruck</strong>
-                <span>Hamburguer - 22-35 min - 4,8</span>
-              </div>
-              <em>Prioritaria</em>
-            </a>
-            <a
-              class="store-card disabled-store"
-              href="#home"
-              data-store-disabled
-            >
-              <div class="store-fake pizza-art" aria-hidden="true"></div>
-              <div>
-                <strong>Slice Byte</strong>
-                <span>Pizza - 30-45 min - 4,7</span>
-              </div>
-              <em>Em breve</em>
-            </a>
-            <a
-              class="store-card disabled-store"
-              href="#home"
-              data-store-disabled
-            >
-              <div class="store-fake bowl-art" aria-hidden="true"></div>
-              <div>
-                <strong>Kernel Bowl</strong>
-                <span>Bowls - 20-30 min - 4,6</span>
-              </div>
-              <em>Em breve</em>
-            </a>
-          </div>
+          <div class="store-list" id="storeList"></div>
         </section>
       </section>
 
@@ -164,6 +152,7 @@
         <section class="restaurant-cover">
           <div
             class="cover-art"
+            id="restaurantCoverArt"
             role="img"
             aria-label="Fachada do estabelecimento ByteTruck"
           >
@@ -177,8 +166,10 @@
           </div>
           <div class="restaurant-summary">
             <div class="restaurant-title">
-              <h1>ByteTruck</h1>
-              <p>Hamburguer artesanal - 22-35 min - entrega R$ 5,99</p>
+              <h1 id="restaurantName">ByteTruck</h1>
+              <p id="restaurantDescription">
+                Hamburguer artesanal - 22-35 min - entrega R$ 5,99
+              </p>
               <div
                 class="restaurant-metrics"
                 aria-label="Resumo do restaurante"
@@ -189,14 +180,14 @@
                       d="m12 3 2.7 5.47 6.03.88-4.36 4.25 1.03 6-5.4-2.84-5.4 2.84 1.03-6-4.36-4.25 6.03-.88L12 3Z"
                     ></path>
                   </svg>
-                  4,8
+                  <strong id="restaurantRating">4,8</strong>
                 </span>
                 <span>
                   <svg viewBox="0 0 24 24" aria-hidden="true">
                     <path d="M12 6v6l4 2"></path>
                     <circle cx="12" cy="12" r="9"></circle>
                   </svg>
-                  22-35 min
+                  <strong id="restaurantTime">22-35 min</strong>
                 </span>
                 <span>
                   <svg viewBox="0 0 24 24" aria-hidden="true">
@@ -204,7 +195,7 @@
                     <circle cx="8" cy="18" r="2"></circle>
                     <circle cx="17" cy="18" r="2"></circle>
                   </svg>
-                  R$ 5,99
+                  <strong id="restaurantDelivery">R$ 5,99</strong>
                 </span>
               </div>
             </div>
@@ -214,17 +205,18 @@
 
         <section class="store-promo-strip" aria-label="Promocao do restaurante">
           <img
+            id="storePromoImage"
             src="cardapios/combo-bburguer-fritas.jpg"
             alt="Combo BBurguer com fritas"
           />
           <div class="store-promo-content">
             <span class="badge live">Oferta da loja</span>
-            <h2>Combo BBurguer + fritas</h2>
-            <p>O mais pedido da loja, pronto para ir direto para sua sacola.</p>
+            <h2 id="storePromoTitle">Combo BBurguer + fritas</h2>
+            <p id="storePromoText">O mais pedido da loja, pronto para ir direto para sua sacola.</p>
           </div>
           <div class="store-promo-action">
-            <strong>R$ 44,90</strong>
-            <button class="button primary small" data-add="2" type="button">
+            <strong id="storePromoPrice">R$ 44,90</strong>
+            <button class="button primary small" data-add="2" type="button" id="storePromoButton">
               Pedir combo
             </button>
           </div>
@@ -239,7 +231,7 @@
                   Poucas escolhas, direto no que mais sai.
                 </p>
               </div>
-              <nav class="category-row" aria-label="Filtros simples">
+              <nav class="category-row" id="categoryRow" aria-label="Filtros simples">
                 <button class="active" data-filter="all">Recomendados</button>
                 <button data-filter="veg">Sem carne</button>
               </nav>
@@ -276,7 +268,7 @@
             <div class="cart-store-head">
               <img src="cardapios/fachada.jpg" alt="" aria-hidden="true" />
               <div>
-                <strong>ByteTruck</strong>
+                <strong id="cartStoreName">ByteTruck</strong>
                 <button id="continueShopping" type="button">
                   Adicionar mais itens
                 </button>
@@ -607,37 +599,30 @@
           </aside>
 
           <div class="admin-main">
-            <div class="partner-header">
-              <div>
-                <p class="eyebrow">ByteTruck</p>
-                <h1 id="adminTitle">Pedidos</h1>
-                <div class="partner-pills">
-                  <span>Aberto</span>
-                  <span>WhatsApp conectado</span>
-                  <span>Stripe ativo</span>
-                </div>
-              </div>
-              <div class="partner-actions">
-                <button class="button ghost" type="button">
-                  Pausar pedidos
-                </button>
-                <a class="button primary" href="#ByteTruck/Catalogo"
-                  >Ver loja</a
-                >
-              </div>
-            </div>
-
             <section class="admin-tab active" id="orders">
+              <div class="partner-overview-grid">
+                <article>
+                  <span>Pedidos hoje</span>
+                  <strong>48</strong>
+                  <small>12 em andamento</small>
+                </article>
+                <article>
+                  <span>Tempo medio</span>
+                  <strong>27 min</strong>
+                  <small>3 min abaixo de ontem</small>
+                </article>
+                <article>
+                  <span>Fila WhatsApp</span>
+                  <strong>100%</strong>
+                  <small>Alertas ativos</small>
+                </article>
+              </div>
               <div id="ordersBoard" class="orders-board"></div>
             </section>
 
             <section class="admin-tab" id="menu">
               <div class="panel table-panel">
-                <div class="panel-heading menu-admin-heading">
-                  <div>
-                    <span class="eyebrow">Cardapio da loja</span>
-                    <h2>ByteTruck</h2>
-                  </div>
+                <div class="admin-inline-actions">
                   <button class="button ghost small" id="toggleMenuLimit">
                     Ver cardapio completo
                   </button>
@@ -649,125 +634,34 @@
             <section class="admin-tab" id="tables">
               <div class="waiter-command-shell">
                 <section class="panel table-command-panel">
-                  <div class="panel-heading waiter-heading">
-                    <div>
-                      <span class="eyebrow">Salao</span>
-                      <h2>Comandas por mesa</h2>
-                    </div>
-                    <button class="button ghost small" type="button">
+                  <div class="admin-inline-actions">
+                    <button
+                      class="button ghost small"
+                      data-table-open-next
+                      type="button"
+                    >
                       Nova comanda
                     </button>
                   </div>
 
-                  <div class="table-command-grid">
-                    <article class="table-command-card is-open">
-                      <div class="command-head">
-                        <div>
-                          <span>Mesa 04</span>
-                          <strong>Rafael + 3</strong>
-                        </div>
-                        <em>Aberta</em>
-                      </div>
-                      <div class="command-items">
-                        <span>2x Combo BBurguer</span>
-                        <span>1x Batata Deploy</span>
-                        <span>2x Refrigerante lata</span>
-                      </div>
-                      <div class="command-foot">
-                        <strong>R$ 108,70</strong>
-                        <button class="button primary small" type="button">
-                          Adicionar
-                        </button>
-                      </div>
-                    </article>
-
-                    <article class="table-command-card is-waiting">
-                      <div class="command-head">
-                        <div>
-                          <span>Mesa 07</span>
-                          <strong>Marina + 1</strong>
-                        </div>
-                        <em>Pagamento</em>
-                      </div>
-                      <div class="command-items">
-                        <span>1x Smash Byte</span>
-                        <span>1x Milkshake</span>
-                      </div>
-                      <div class="command-foot">
-                        <strong>R$ 54,90</strong>
-                        <button class="button ghost small" type="button">
-                          Fechar
-                        </button>
-                      </div>
-                    </article>
-
-                    <article class="table-command-card is-open">
-                      <div class="command-head">
-                        <div>
-                          <span>Mesa 12</span>
-                          <strong>Joao + 2</strong>
-                        </div>
-                        <em>Cozinha</em>
-                      </div>
-                      <div class="command-items">
-                        <span>3x ByteBurger</span>
-                        <span>1x Onion rings</span>
-                      </div>
-                      <div class="command-foot">
-                        <strong>R$ 123,80</strong>
-                        <button class="button primary small" type="button">
-                          Adicionar
-                        </button>
-                      </div>
-                    </article>
-
-                    <article class="table-command-card is-free">
-                      <div class="command-head">
-                        <div>
-                          <span>Mesa 15</span>
-                          <strong>Livre</strong>
-                        </div>
-                        <em>Sem consumo</em>
-                      </div>
-                      <p>Abra uma comanda quando o cliente sentar.</p>
-                      <div class="command-foot">
-                        <strong>R$ 0,00</strong>
-                        <button class="button ghost small" type="button">
-                          Abrir
-                        </button>
-                      </div>
-                    </article>
-                  </div>
+                  <div id="tableCommandGrid" class="table-command-grid"></div>
                 </section>
 
-                <aside class="panel waiter-side-panel">
-                  <div>
-                    <span class="eyebrow">Fila do garcom</span>
-                    <h2>Chamados</h2>
-                  </div>
-                  <div class="waiter-call urgent">
-                    <strong>Mesa 04</strong>
-                    <span>Adicionar ketchup e guardanapos</span>
-                  </div>
-                  <div class="waiter-call">
-                    <strong>Mesa 07</strong>
-                    <span>Cliente pediu fechamento da conta</span>
-                  </div>
-                  <div class="waiter-total">
-                    <span>Em aberto</span>
-                    <strong>R$ 287,40</strong>
-                  </div>
-                </aside>
+                <aside
+                  class="panel waiter-side-panel"
+                  id="waiterCommandPanel"
+                ></aside>
               </div>
             </section>
 
             <section class="admin-tab" id="finance">
               <div class="finance-grid">
                 <article class="panel">
-                  <h2>Receita por metodo</h2>
-                  <p class="panel-subtitle">
-                    Taxas aplicadas somente quando o cliente paga pelo site.
-                  </p>
+                  <div class="finance-total-card">
+                    <span>Receita bruta</span>
+                    <strong>R$ 5.040,00</strong>
+                    <small>Delivery + salao + retirada</small>
+                  </div>
                   <div class="money-row">
                     <span>Pix pelo site</span><strong>R$ 1.920,00</strong
                     ><em>1,99%</em>
@@ -782,7 +676,6 @@
                   </div>
                 </article>
                 <article class="panel">
-                  <h2>Liquidacao estimada</h2>
                   <div class="big-number">R$ 4.879,93</div>
                   <div class="settlement-meter" aria-hidden="true">
                     <span></span>
@@ -791,6 +684,19 @@
                     Taxas exibidas apenas para pagamentos processados no site
                     via Stripe.
                   </p>
+                  <div class="finance-breakdown">
+                    <span><strong>R$ 100,27</strong> taxas do site</span>
+                    <span><strong>R$ 680,00</strong> dinheiro sem taxa</span>
+                    <span><strong>D+1</strong> previsao de liquidacao</span>
+                  </div>
+                </article>
+                <article class="panel finance-wide">
+                  <div class="finance-mini-grid">
+                    <span><strong>31</strong> pedidos pagos no site</span>
+                    <span><strong>17</strong> pedidos no salao</span>
+                    <span><strong>R$ 42,80</strong> ticket medio</span>
+                    <span><strong>2,1%</strong> cancelamentos</span>
+                  </div>
                 </article>
               </div>
             </section>
@@ -799,7 +705,7 @@
               <div class="campaign-grid">
                 <article class="campaign active">
                   <span class="badge">WhatsApp</span>
-                  <h2>Combo Prioritario</h2>
+                  <strong class="campaign-title">Combo Prioritario</strong>
                   <p>Envio para clientes que pediram nos ultimos 30 dias.</p>
                   <button class="button primary small">
                     Disparar campanha
@@ -807,52 +713,94 @@
                 </article>
                 <article class="campaign">
                   <span class="badge muted">Agendada</span>
-                  <h2>Relatorio mensal</h2>
+                  <strong class="campaign-title">Relatorio mensal</strong>
                   <p>
                     Resumo automatico para donos e gerentes no primeiro dia do
                     mes.
                   </p>
                   <button class="button ghost small">Editar</button>
                 </article>
+                <article class="campaign">
+                  <span class="badge muted">Recuperacao</span>
+                  <strong class="campaign-title">Carrinho parado</strong>
+                  <p>Mensagem para clientes que abriram a sacola e nao fecharam.</p>
+                  <button class="button ghost small">Ativar</button>
+                </article>
+                <article class="campaign">
+                  <span class="badge">Salao</span>
+                  <strong class="campaign-title">Volte hoje</strong>
+                  <p>Cupom para mesas fechadas nas ultimas 2 semanas.</p>
+                  <button class="button ghost small">Configurar</button>
+                </article>
               </div>
             </section>
 
             <section class="admin-tab" id="metrics">
-              <div class="panel">
-                <h2>Graficos e metricas</h2>
-                <p class="panel-subtitle">
-                  Picos de pedido por horario para orientar preparo e campanha.
-                </p>
-                <div class="chart" aria-label="Pedidos por horario">
-                  <span style="height: 34%"><b>11h</b></span>
-                  <span style="height: 62%"><b>12h</b></span>
-                  <span style="height: 76%"><b>13h</b></span>
-                  <span style="height: 48%"><b>18h</b></span>
-                  <span style="height: 91%"><b>19h</b></span>
-                  <span style="height: 70%"><b>20h</b></span>
+              <div class="metrics-layout">
+                <div class="panel">
+                  <div class="chart" aria-label="Pedidos por horario">
+                    <span style="height: 34%"><b>11h</b></span>
+                    <span style="height: 62%"><b>12h</b></span>
+                    <span style="height: 76%"><b>13h</b></span>
+                    <span style="height: 48%"><b>18h</b></span>
+                    <span style="height: 91%"><b>19h</b></span>
+                    <span style="height: 70%"><b>20h</b></span>
+                  </div>
+                  <div class="metric-list">
+                    <span>Conversao publica: <strong>18,4%</strong></span>
+                    <span>Cancelamentos: <strong>2,1%</strong></span>
+                    <span>Tempo medio: <strong>27 min</strong></span>
+                  </div>
                 </div>
-                <div class="metric-list">
-                  <span>Conversao publica: <strong>18,4%</strong></span>
-                  <span>Cancelamentos: <strong>2,1%</strong></span>
-                  <span>Tempo medio: <strong>27 min</strong></span>
-                </div>
+                <aside class="panel metric-side">
+                  <span><strong>Combo BBurguer</strong> mais vendido</span>
+                  <span><strong>19h</strong> pico de demanda</span>
+                  <span><strong>R$ 5,99</strong> entrega media</span>
+                  <span><strong>4,8</strong> avaliacao da loja</span>
+                </aside>
               </div>
             </section>
 
             <section class="admin-tab" id="integrations">
               <div class="integration-grid">
                 <article class="panel integration">
-                  <h2>Stripe</h2>
                   <p>Pix, cartao e calculo de taxa por pedido pago no site.</p>
                   <span class="status-dot connected">Conectado</span>
+                  <div class="integration-checks">
+                    <span>Pix: 1,99%</span>
+                    <span>Cartao: 4,99% + R$ 0,49</span>
+                    <span>Repasse D+1 ativo</span>
+                  </div>
                 </article>
                 <article class="panel integration">
-                  <h2>WhatsApp</h2>
                   <p>
                     Alertas de pedido, entrega, relatorios semanais/mensais e
                     campanhas promocionais.
                   </p>
                   <span class="status-dot connected">Conectado</span>
+                  <div class="integration-checks">
+                    <span>Pedidos em tempo real</span>
+                    <span>Relatorio semanal ativo</span>
+                    <span>Campanhas liberadas</span>
+                  </div>
+                </article>
+                <article class="panel integration">
+                  <p>Vercel com deploy publico para cardapio e area do cliente.</p>
+                  <span class="status-dot connected">Publicado</span>
+                  <div class="integration-checks">
+                    <span>HTTPS ativo</span>
+                    <span>Subdominio por loja</span>
+                    <span>Cache de imagens</span>
+                  </div>
+                </article>
+                <article class="panel integration">
+                  <p>Operacao local para comandas, pedidos e cozinha no MVP.</p>
+                  <span class="status-dot connected">Operando</span>
+                  <div class="integration-checks">
+                    <span>Comandas por mesa</span>
+                    <span>Fila de cozinha</span>
+                    <span>Fechamento no salao</span>
+                  </div>
                 </article>
               </div>
             </section>
@@ -882,6 +830,11 @@
       <small id="mobileCartCount">0</small>
     </button>
     <div class="cart-backdrop" id="cartBackdrop" aria-hidden="true"></div>
+    <div
+      class="command-backdrop"
+      id="commandBackdrop"
+      aria-hidden="true"
+    ></div>
     <nav class="bottom-nav" aria-label="Navegacao principal">
       <a
         class="nav-icon home-icon"
