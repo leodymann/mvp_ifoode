@@ -37,6 +37,15 @@
     <link rel="stylesheet" href="styles.css" />
   </head>
   <body>
+    <div class="app-splash" id="appSplash" aria-hidden="true">
+      <div class="splash-logo">Ped'ai</div>
+      <div class="splash-loader">
+        <span></span>
+        <span></span>
+        <span></span>
+      </div>
+    </div>
+
     <header class="topbar">
       <div class="user-address">
         <strong>Olá, Léo</strong>
@@ -50,14 +59,8 @@
     <main>
       <section id="home-view" class="view home-shell active">
         <section class="food-feed" aria-label="Feed de pratos">
-          <div class="section-heading compact">
-            <div>
-              <h2>Pedidos em destaque</h2>
-              <p>Role para ver poucas sugestoes por vez.</p>
-            </div>
-          </div>
-          <div class="feed-carousel">
-            <a class="feed-card hero-feed" href="#ByteTruck/Catalogo">
+          <div class="feed-carousel rotating-feed" id="homeFeed">
+            <a class="feed-card hero-feed active" href="#ByteTruck/Catalogo">
               <img
                 src="cardapios/combo-bburguer-fritas.jpg"
                 alt="Combo BBurguer com fritas"
@@ -68,25 +71,12 @@
                 <p>ByteTruck - burger + fritas</p>
               </div>
             </a>
-            <a class="feed-card" href="#SliceByte/Catalogo">
-              <img src="cardapios/pepperoni-pizza.jpg" alt="Pizza pepperoni" />
+            <a class="feed-card soft-ad" href="#ByteTruck/Catalogo">
+              <img src="cardapios/fachada.jpg" alt="Fachada do ByteTruck" />
+              <span class="badge sponsored">Perto de você</span>
               <div>
-                <h2>Pizza pepperoni</h2>
-                <p>Slice Byte</p>
-              </div>
-            </a>
-            <a class="feed-card" href="#SushiKernel/Catalogo">
-              <img src="cardapios/sushi-10peças.jpg" alt="Sushi variado" />
-              <div>
-                <h2>Sushi Kernel 10</h2>
-                <p>Sushi Kernel</p>
-              </div>
-            </a>
-            <a class="feed-card" href="#DrinkHub/Catalogo">
-              <img src="cardapios/copao-450ml(coca-cola).jpg" alt="Copao Coca-Cola" />
-              <div>
-                <h2>Copao Coca-Cola</h2>
-                <p>DrinkHub</p>
+                <h2>ByteTruck</h2>
+                <p>Aberto agora - 22-35 min</p>
               </div>
             </a>
             <a class="feed-card" href="#ByteTruck/Catalogo">
@@ -120,15 +110,65 @@
                 <p>Pra dividir</p>
               </div>
             </a>
+            <a class="feed-card" href="#ByteTruck/Catalogo">
+              <img src="cardapios/bytes-fritas.jpg" alt="Bytes Fritas" />
+              <div>
+                <h2>Bytes Fritas</h2>
+                <p>Adicional rapido</p>
+              </div>
+            </a>
+            <a class="feed-card" href="#SliceByte/Catalogo">
+              <img src="cardapios/pepperoni-pizza.jpg" alt="Pizza pepperoni" />
+              <div>
+                <h2>Pizza pepperoni</h2>
+                <p>Slice Byte</p>
+              </div>
+            </a>
+            <a class="feed-card" href="#SushiKernel/Catalogo">
+              <img src="cardapios/sushi-10peças.jpg" alt="Sushi variado" />
+              <div>
+                <h2>Sushi Kernel 10</h2>
+                <p>Sushi Kernel</p>
+              </div>
+            </a>
+            <a class="feed-card" href="#DrinkHub/Catalogo">
+              <img src="cardapios/Mykonian.jpg" alt="Drink Mykonian" />
+              <div>
+                <h2>Mykonian</h2>
+                <p>DrinkHub</p>
+              </div>
+            </a>
+            <div
+              class="feed-indicators"
+              id="homeFeedIndicators"
+              aria-hidden="true"
+            ></div>
           </div>
+          <div class="section-heading compact home-red-heading best-heading">
+            <div>
+              <h2>Melhor para você</h2>
+              <p>A escolha em destaque para pedir sem pensar muito.</p>
+            </div>
+          </div>
+          <a class="home-featured" href="#ByteTruck/Catalogo">
+            <img src="cardapios/fachada.jpg" alt="Fachada do ByteTruck" />
+            <div>
+              <span>Hamburguer - 22-35 min</span>
+              <strong>ByteTruck</strong>
+              <p>Aberto agora perto de você.</p>
+            </div>
+            <em>Ver loja</em>
+          </a>
         </section>
 
         <section class="store-section">
-          <div class="section-heading compact">
+          <div
+            class="section-heading compact store-showcase-heading nearby-heading"
+          >
             <div>
-              <h2>Lojas prioritarias</h2>
-              <p>Poucas lojas ativas para evitar excesso de escolha.</p>
+              <h2>Em Destaque</h2>
             </div>
+            <a href="#pesquisa">Ver mais</a>
           </div>
           <div class="store-list" id="storeList"></div>
         </section>
@@ -212,11 +252,18 @@
           <div class="store-promo-content">
             <span class="badge live">Oferta da loja</span>
             <h2 id="storePromoTitle">Combo BBurguer + fritas</h2>
-            <p id="storePromoText">O mais pedido da loja, pronto para ir direto para sua sacola.</p>
+            <p id="storePromoText">
+              O mais pedido da loja, pronto para ir direto para sua sacola.
+            </p>
           </div>
           <div class="store-promo-action">
             <strong id="storePromoPrice">R$ 44,90</strong>
-            <button class="button primary small" data-add="2" type="button" id="storePromoButton">
+            <button
+              class="button primary small"
+              data-add="2"
+              type="button"
+              id="storePromoButton"
+            >
               Pedir combo
             </button>
           </div>
@@ -231,7 +278,11 @@
                   Poucas escolhas, direto no que mais sai.
                 </p>
               </div>
-              <nav class="category-row" id="categoryRow" aria-label="Filtros simples">
+              <nav
+                class="category-row"
+                id="categoryRow"
+                aria-label="Filtros simples"
+              >
                 <button class="active" data-filter="all">Recomendados</button>
                 <button data-filter="veg">Sem carne</button>
               </nav>
@@ -467,7 +518,7 @@
             <span class="map-pin courier-pin" aria-label="Entregador"></span>
             <span class="map-pin home-pin" aria-label="Destino"></span>
             <div class="map-label store-label">ByteTruck</div>
-            <div class="map-label home-label">Voce</div>
+            <div class="map-label home-label">Você</div>
           </div>
           <section class="tracking-receipt" aria-label="Resumo do pedido">
             <div class="receipt-head">
@@ -545,8 +596,15 @@
               <img src="cardapios/fachada.jpg" alt="Fachada ByteTruck" />
               <div>
                 <a class="admin-wordmark" href="#admin">ByteTruck</a>
-                <span>Plano Prioritario</span>
+                <span>Plano destaque</span>
               </div>
+              <a
+                class="partner-home-link"
+                href="#home"
+                aria-label="Voltar para home"
+              >
+                <i class="fi fi-sr-home" aria-hidden="true"></i>
+              </a>
             </div>
             <nav class="admin-tabs" aria-label="Areas privadas">
               <button
@@ -600,23 +658,6 @@
 
           <div class="admin-main">
             <section class="admin-tab active" id="orders">
-              <div class="partner-overview-grid">
-                <article>
-                  <span>Pedidos hoje</span>
-                  <strong>48</strong>
-                  <small>12 em andamento</small>
-                </article>
-                <article>
-                  <span>Tempo medio</span>
-                  <strong>27 min</strong>
-                  <small>3 min abaixo de ontem</small>
-                </article>
-                <article>
-                  <span>Fila WhatsApp</span>
-                  <strong>100%</strong>
-                  <small>Alertas ativos</small>
-                </article>
-              </div>
               <div id="ordersBoard" class="orders-board"></div>
             </section>
 
@@ -705,7 +746,7 @@
               <div class="campaign-grid">
                 <article class="campaign active">
                   <span class="badge">WhatsApp</span>
-                  <strong class="campaign-title">Combo Prioritario</strong>
+                  <strong class="campaign-title">Combo em destaque</strong>
                   <p>Envio para clientes que pediram nos ultimos 30 dias.</p>
                   <button class="button primary small">
                     Disparar campanha
@@ -723,7 +764,9 @@
                 <article class="campaign">
                   <span class="badge muted">Recuperacao</span>
                   <strong class="campaign-title">Carrinho parado</strong>
-                  <p>Mensagem para clientes que abriram a sacola e nao fecharam.</p>
+                  <p>
+                    Mensagem para clientes que abriram a sacola e nao fecharam.
+                  </p>
                   <button class="button ghost small">Ativar</button>
                 </article>
                 <article class="campaign">
@@ -785,7 +828,9 @@
                   </div>
                 </article>
                 <article class="panel integration">
-                  <p>Vercel com deploy publico para cardapio e area do cliente.</p>
+                  <p>
+                    Vercel com deploy publico para cardapio e area do cliente.
+                  </p>
                   <span class="status-dot connected">Publicado</span>
                   <div class="integration-checks">
                     <span>HTTPS ativo</span>
@@ -830,11 +875,7 @@
       <small id="mobileCartCount">0</small>
     </button>
     <div class="cart-backdrop" id="cartBackdrop" aria-hidden="true"></div>
-    <div
-      class="command-backdrop"
-      id="commandBackdrop"
-      aria-hidden="true"
-    ></div>
+    <div class="command-backdrop" id="commandBackdrop" aria-hidden="true"></div>
     <nav class="bottom-nav" aria-label="Navegacao principal">
       <a
         class="nav-icon home-icon"
