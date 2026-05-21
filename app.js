@@ -1,6 +1,54 @@
+const stores = [
+  {
+    id: "bytetruck",
+    slug: "ByteTruck",
+    name: "ByteTruck",
+    category: "Hamburguer",
+    meta: "22-35 min - 4,8",
+    delivery: "R$ 5,99",
+    image: "cardapios/fachada.jpg",
+    hero: "cardapios/fachada.jpg",
+    badge: "Prioritaria",
+  },
+  {
+    id: "slicebyte",
+    slug: "SliceByte",
+    name: "Slice Byte",
+    category: "Pizza",
+    meta: "30-45 min - 4,7",
+    delivery: "R$ 6,99",
+    image: "cardapios/fachada-pizzaria.jpg",
+    hero: "cardapios/fachada-pizzaria.jpg",
+    badge: "Mais pedida",
+  },
+  {
+    id: "sushikernel",
+    slug: "SushiKernel",
+    name: "Sushi Kernel",
+    category: "Japonesa",
+    meta: "35-50 min - 4,8",
+    delivery: "R$ 7,99",
+    image: "cardapios/fachada-sushi.jpg",
+    hero: "cardapios/fachada-sushi.jpg",
+    badge: "Fresca",
+  },
+  {
+    id: "drinkhub",
+    slug: "DrinkHub",
+    name: "DrinkHub",
+    category: "Bebidas",
+    meta: "15-25 min - 4,6",
+    delivery: "R$ 4,99",
+    image: "cardapios/fachada-drinkhub.jpg",
+    hero: "cardapios/fachada-drinkhub.jpg",
+    badge: "Rapida",
+  },
+];
+
 const menu = [
   {
     id: 1,
+    storeId: "bytetruck",
     name: "ByteBurguer",
     description: "Burger classico",
     price: 32.9,
@@ -10,6 +58,7 @@ const menu = [
   },
   {
     id: 2,
+    storeId: "bytetruck",
     name: "Combo BBurguer",
     description: "Burger + fritas",
     price: 44.9,
@@ -20,6 +69,7 @@ const menu = [
   },
   {
     id: 3,
+    storeId: "bytetruck",
     name: "BQuarter Max",
     description: "Burger alto",
     price: 39.9,
@@ -29,6 +79,7 @@ const menu = [
   },
   {
     id: 4,
+    storeId: "bytetruck",
     name: "XByte Common",
     description: "Queijo e molho",
     price: 29.9,
@@ -38,6 +89,7 @@ const menu = [
   },
   {
     id: 5,
+    storeId: "bytetruck",
     name: "3 ByteBurguers",
     description: "Pra dividir",
     price: 69.9,
@@ -47,6 +99,7 @@ const menu = [
   },
   {
     id: 6,
+    storeId: "bytetruck",
     name: "Veggie Kernel",
     description: "Blend vegetal",
     price: 34.9,
@@ -56,6 +109,7 @@ const menu = [
   },
   {
     id: 7,
+    storeId: "bytetruck",
     name: "Batata Deploy",
     description: "Batata crocante",
     price: 18.9,
@@ -65,12 +119,166 @@ const menu = [
   },
   {
     id: 8,
+    storeId: "bytetruck",
     name: "Byte Duplo",
     description: "Dois burgers",
     price: 46.9,
     tag: "combo",
     priority: false,
     image: "cardapios/BQuarter Max.jpg",
+  },
+  {
+    id: 9,
+    storeId: "bytetruck",
+    name: "Bytes Fritas",
+    description: "Porcao crocante",
+    price: 16.9,
+    tag: "side",
+    priority: false,
+    image: "cardapios/bytes-fritas.jpg",
+  },
+  {
+    id: 10,
+    storeId: "slicebyte",
+    name: "Pepperoni Byte",
+    description: "Pepperoni e queijo",
+    price: 58.9,
+    tag: "pizza",
+    priority: true,
+    recommended: true,
+    image: "cardapios/pepperoni-pizza.jpg",
+  },
+  {
+    id: 11,
+    storeId: "slicebyte",
+    name: "Napolitana Stack",
+    description: "Tomate, queijo e oregano",
+    price: 52.9,
+    tag: "pizza",
+    priority: true,
+    image: "cardapios/napolitana-pizza.jpg",
+  },
+  {
+    id: 12,
+    storeId: "slicebyte",
+    name: "Frango Deploy",
+    description: "Frango cremoso",
+    price: 55.9,
+    tag: "pizza",
+    priority: false,
+    image: "cardapios/frango-pizza.jpg",
+  },
+  {
+    id: 13,
+    storeId: "sushikernel",
+    name: "Sushi Kernel 10",
+    description: "10 pecas variadas",
+    price: 49.9,
+    tag: "sushi",
+    priority: true,
+    recommended: true,
+    image: "cardapios/sushi-10peças.jpg",
+  },
+  {
+    id: 14,
+    storeId: "sushikernel",
+    name: "Sushi Kernel 8",
+    description: "8 pecas selecionadas",
+    price: 39.9,
+    tag: "sushi",
+    priority: true,
+    image: "cardapios/sushi-8peças.jpg",
+  },
+  {
+    id: 15,
+    storeId: "sushikernel",
+    name: "Yakissoba 3 pessoas",
+    description: "Macarrao oriental",
+    price: 64.9,
+    tag: "hot",
+    priority: false,
+    image: "cardapios/yakissoba-3pessoas.jpg",
+  },
+  {
+    id: 16,
+    storeId: "drinkhub",
+    name: "Copao Coca-Cola",
+    description: "Copo 450ml gelado",
+    price: 9.9,
+    tag: "drink",
+    priority: true,
+    recommended: true,
+    image: "cardapios/copao-450ml(coca-cola).jpg",
+  },
+  {
+    id: 17,
+    storeId: "drinkhub",
+    name: "Suco de laranja",
+    description: "350ml natural",
+    price: 11.9,
+    tag: "drink",
+    priority: true,
+    image: "cardapios/sucodelaranja-350ml.jpg",
+  },
+  {
+    id: 18,
+    storeId: "drinkhub",
+    name: "Jarra de laranja",
+    description: "1 litro para mesa",
+    price: 24.9,
+    tag: "drink",
+    priority: false,
+    image: "cardapios/jarradesucolaranja-1l.jpg",
+  },
+  {
+    id: 19,
+    storeId: "drinkhub",
+    name: "Coca-Cola 350ml",
+    description: "Lata gelada",
+    price: 7.9,
+    tag: "drink",
+    priority: true,
+    image: "cardapios/coca-cola350ml.jpg",
+  },
+  {
+    id: 20,
+    storeId: "drinkhub",
+    name: "Copo Coca-Cola 450ml",
+    description: "Copo grande para acompanhar",
+    price: 10.9,
+    tag: "drink",
+    priority: false,
+    image: "cardapios/copao-450ml(coca-cola).jpg",
+  },
+  {
+    id: 21,
+    storeId: "drinkhub",
+    name: "Mykonian",
+    description: "Drink autoral gelado",
+    price: 24.9,
+    tag: "drink",
+    priority: true,
+    image: "cardapios/Mykonian.jpg",
+  },
+  {
+    id: 22,
+    storeId: "drinkhub",
+    name: "Shirley Temple",
+    description: "Mocktail leve e doce",
+    price: 18.9,
+    tag: "drink",
+    priority: false,
+    image: "cardapios/shirley temple.jpg",
+  },
+  {
+    id: 23,
+    storeId: "drinkhub",
+    name: "Skinny Bitch",
+    description: "Drink refrescante",
+    price: 22.9,
+    tag: "drink",
+    priority: false,
+    image: "cardapios/skinny bitch.jpg",
   },
 ];
 
@@ -155,7 +363,54 @@ const state = {
   trackingStep: 1,
   menuLimited: true,
   cartStep: 0,
+  selectedTableId: 4,
+  activeStoreId: "bytetruck",
 };
+
+const tableTabs = [
+  {
+    id: 4,
+    guest: "Rafael + 3",
+    status: "Aberta",
+    payment: "Pendente",
+    items: [
+      { menuId: 2, qty: 2 },
+      { menuId: 7, qty: 1 },
+      { name: "Refrigerante lata", price: 7.9, qty: 2 },
+    ],
+    note: "Mesa pediu ketchup e guardanapos.",
+  },
+  {
+    id: 7,
+    guest: "Marina + 1",
+    status: "Pagamento",
+    payment: "Aguardando",
+    items: [
+      { menuId: 1, qty: 1 },
+      { name: "Milkshake", price: 16.9, qty: 1 },
+    ],
+    note: "Cliente pediu fechamento da conta.",
+  },
+  {
+    id: 12,
+    guest: "Joao + 2",
+    status: "Cozinha",
+    payment: "Pendente",
+    items: [
+      { menuId: 1, qty: 3 },
+      { name: "Onion rings", price: 19.1, qty: 1 },
+    ],
+    note: "Preparar sem pressa, mesa ainda consumindo.",
+  },
+  {
+    id: 15,
+    guest: "Livre",
+    status: "Livre",
+    payment: "",
+    items: [],
+    note: "Abra uma comanda quando o cliente sentar.",
+  },
+];
 
 const mobileMenu = window.matchMedia("(max-width: 720px)");
 
@@ -167,6 +422,10 @@ const menuCategoryLabels = {
   combo: "Burguers e combos",
   veg: "Sem carne",
   side: "Acompanhamentos",
+  pizza: "Pizzas",
+  sushi: "Sushis",
+  hot: "Pratos quentes",
+  drink: "Bebidas",
 };
 const qs = (selector) => document.querySelector(selector);
 const qsa = (selector) => [...document.querySelectorAll(selector)];
@@ -237,18 +496,103 @@ function showPopup(id, storageKey) {
 
 function closePromos() {
   if (qs("#promoPopup")?.classList.contains("show")) {
-    sessionStorage.setItem("storePromoSeen", "true");
+    sessionStorage.setItem(`storePromoSeen-${state.activeStoreId}`, "true");
   }
   qs("#promoPopup")?.classList.remove("show");
   qs("#promoBackdrop")?.classList.remove("show");
 }
 
+function activeStore() {
+  return stores.find((store) => store.id === state.activeStoreId) || stores[0];
+}
+
+function storeItems(storeId = state.activeStoreId) {
+  return menu.filter((item) => item.storeId === storeId);
+}
+
+function renderHomeStores() {
+  const list = qs("#storeList");
+  if (!list) return;
+  list.innerHTML = stores
+    .map(
+      (store) => `
+        <a class="store-card" href="#${store.slug}/Catalogo">
+          <img src="${store.image}" alt="${store.name}" />
+          <div>
+            <strong>${store.name}</strong>
+            <span>${store.category} - ${store.meta}</span>
+          </div>
+          <em>${store.badge}</em>
+        </a>
+      `,
+    )
+    .join("");
+}
+
+function renderCategoryFilters() {
+  const row = qs("#categoryRow");
+  if (!row) return;
+  const tags = [...new Set(storeItems().map((item) => item.tag))];
+  if (!tags.includes(state.filter)) state.filter = "all";
+  row.innerHTML = [
+    `<button class="${state.filter === "all" ? "active" : ""}" data-filter="all">Recomendados</button>`,
+    ...tags.map(
+      (tag) =>
+        `<button class="${state.filter === tag ? "active" : ""}" data-filter="${tag}">${menuCategoryLabels[tag] || tag}</button>`,
+    ),
+  ].join("");
+  qsa(".category-row button").forEach((button) => {
+    button.addEventListener("click", () => {
+      qsa(".category-row button").forEach((entry) =>
+        entry.classList.remove("active"),
+      );
+      button.classList.add("active");
+      state.filter = button.dataset.filter;
+      renderMenu();
+    });
+  });
+}
+
+function renderStorePage() {
+  const store = activeStore();
+  const recommended =
+    storeItems(store.id).find((item) => item.recommended) || storeItems(store.id)[0];
+  qs("#restaurantCoverArt").style.backgroundImage = `linear-gradient(180deg, rgba(0, 0, 0, 0.02), rgba(0, 0, 0, 0.48)), url("${store.hero}")`;
+  setText("#restaurantName", store.name);
+  setText(
+    "#restaurantDescription",
+    `${store.category} - ${store.meta.split(" - ")[0]} - entrega ${store.delivery}`,
+  );
+  setText("#restaurantRating", store.meta.split(" - ")[1] || "4,8");
+  setText("#restaurantTime", store.meta.split(" - ")[0]);
+  setText("#restaurantDelivery", store.delivery);
+  setText("#cartStoreName", store.name);
+
+  if (recommended) {
+    qs("#storePromoImage").src = recommended.image;
+    qs("#storePromoImage").alt = recommended.name;
+    setText("#storePromoTitle", recommended.name);
+    setText("#storePromoText", `${recommended.description}, pronto para ir direto para sua sacola.`);
+    setText("#storePromoPrice", money.format(recommended.price));
+    qs("#storePromoButton").dataset.add = recommended.id;
+    const popupPhoto = qs(".promo-photo");
+    if (popupPhoto) {
+      popupPhoto.src = recommended.image;
+      popupPhoto.alt = recommended.name;
+    }
+    setText("#promoTitle", recommended.name);
+    qs("#promoAdd").dataset.add = recommended.id;
+  }
+  renderCategoryFilters();
+}
+
 function visibleMenu() {
   const filtered = menu.filter((item) => {
+    const matchesStore = item.storeId === state.activeStoreId;
     const matchesCategory = state.filter === "all" || item.tag === state.filter;
     const haystack = `${item.name} ${item.description}`.toLowerCase();
     const matchesQuery = haystack.includes(state.query.toLowerCase());
-    return matchesCategory && matchesQuery;
+    return matchesStore && matchesCategory && matchesQuery;
   });
 
   if (mobileMenu.matches) return filtered;
@@ -326,7 +670,9 @@ function renderSearchResults() {
   qs("#searchResults").innerHTML = items.length
     ? items
         .map(
-          (item) => `
+          (item) => {
+            const store = stores.find((entry) => entry.id === item.storeId) || stores[0];
+            return `
     <article class="menu-card search-result-card">
       <div class="menu-copy">
         <span class="badge ${item.recommended ? "live" : ""}">${item.recommended ? "Mais pedido" : "Prioritario"}</span>
@@ -334,12 +680,12 @@ function renderSearchResults() {
           <strong>${item.name}</strong>
           <span>${money.format(item.price)}</span>
         </div>
-        <p>${item.description} - ByteTruck</p>
-        <a class="button primary" href="#ByteTruck/Catalogo">Ver na loja</a>
+        <p>${item.description} - ${store.name}</p>
+        <a class="button primary" href="#${store.slug}/Catalogo">Ver na loja</a>
       </div>
       <img class="food-photo" src="${item.image}" alt="${item.name}" loading="lazy" />
     </article>
-  `,
+  `},
         )
         .join("")
     : `
@@ -622,6 +968,17 @@ function closeOrderModal() {
   qs("#orderDetailBackdrop").classList.remove("show");
 }
 
+function openTableCommandPanel() {
+  if (!mobileMenu.matches) return;
+  document.body.classList.add("command-panel-open");
+  qs("#commandBackdrop")?.classList.add("show");
+}
+
+function closeTableCommandPanel() {
+  document.body.classList.remove("command-panel-open");
+  qs("#commandBackdrop")?.classList.remove("show");
+}
+
 function nextOrderStatus(status) {
   const flow = ["Novo", "Em preparo", "Entrega"];
   const index = flow.indexOf(status);
@@ -634,6 +991,248 @@ function moveOrderToStatus(orderId, status) {
   order.status = status;
   renderOrders();
   showToast(`Pedido ${order.id} movido para ${order.status}.`);
+}
+
+function commandItemInfo(item) {
+  const menuItem = menu.find((entry) => entry.id === item.menuId);
+  return {
+    name: item.name || menuItem?.name || "Item",
+    price: item.price ?? menuItem?.price ?? 0,
+    image: item.image || menuItem?.image || "cardapios/ByteBurguer.jpg",
+    qty: item.qty,
+  };
+}
+
+function tableTotal(table) {
+  return table.items.reduce((sum, item) => {
+    const info = commandItemInfo(item);
+    return sum + info.price * info.qty;
+  }, 0);
+}
+
+function tableStatusClass(status) {
+  if (status === "Livre") return "is-free";
+  if (status === "Pagamento" || status === "Pago") return "is-waiting";
+  return "is-open";
+}
+
+function commandPaymentIcon(method) {
+  const icons = {
+    Pix: `<svg class="command-payment-icon pix" viewBox="0 0 512 512" aria-hidden="true"><g fill="#4BB8A9" fill-rule="evenodd"><path d="M112.57 391.19c20.056 0 38.928-7.808 53.12-22l76.693-76.692c5.385-5.404 14.765-5.384 20.15 0l76.989 76.989c14.191 14.172 33.045 21.98 53.12 21.98h15.098l-97.138 97.139c-30.326 30.344-79.505 30.344-109.85 0l-97.415-97.416h9.232zm280.068-271.294c-20.056 0-38.929 7.809-53.12 22l-76.97 76.99c-5.551 5.53-14.6 5.568-20.15-.02l-76.711-76.693c-14.192-14.191-33.046-21.999-53.12-21.999h-9.234l97.416-97.416c30.344-30.344 79.523-30.344 109.867 0l97.138 97.138h-15.116z"></path><path d="M22.758 200.753l58.024-58.024h31.787c13.84 0 27.384 5.605 37.172 15.394l76.694 76.693c7.178 7.179 16.596 10.768 26.033 10.768 9.417 0 18.854-3.59 26.014-10.75l76.989-76.99c9.787-9.787 23.331-15.393 37.171-15.393h37.654l58.3 58.302c30.343 30.344 30.343 79.523 0 109.867l-58.3 58.303H392.64c-13.84 0-27.384-5.605-37.171-15.394l-76.97-76.99c-13.914-13.894-38.172-13.894-52.066.02l-76.694 76.674c-9.788 9.788-23.332 15.413-37.172 15.413H80.782L22.758 310.62c-30.344-30.345-30.344-79.524 0-109.868"></path></g></svg>`,
+    Cartao: `<svg class="command-payment-icon" viewBox="0 0 32 32" aria-hidden="true"><rect x="3" y="7" width="26" height="18" rx="3"></rect><path d="M3 13h26"></path><path d="M8 20h7"></path></svg>`,
+    Dinheiro: `<svg class="command-payment-icon" viewBox="0 0 32 32" aria-hidden="true"><rect x="4" y="8" width="24" height="16" rx="3"></rect><circle cx="16" cy="16" r="4"></circle><path d="M8 12h2M22 20h2"></path></svg>`,
+  };
+  return icons[method] || "";
+}
+
+function openTableTab(tableId) {
+  const table = tableTabs.find((entry) => entry.id === Number(tableId));
+  if (!table || table.status !== "Livre") return;
+  table.guest = `Mesa ${String(table.id).padStart(2, "0")} aberta`;
+  table.status = "Aberta";
+  table.payment = "Pendente";
+  table.items = [];
+  state.selectedTableId = table.id;
+  renderTableTabs();
+  showToast(`Comanda da mesa ${String(table.id).padStart(2, "0")} aberta.`);
+}
+
+function addItemToTable(tableId, itemId) {
+  const table = tableTabs.find((entry) => entry.id === Number(tableId));
+  const item = menu.find((entry) => entry.id === Number(itemId));
+  if (!table || !item) return;
+  if (table.status === "Livre") openTableTab(table.id);
+  const activeTable = tableTabs.find((entry) => entry.id === Number(tableId));
+  const existing = activeTable.items.find((entry) => entry.menuId === item.id);
+  if (existing) {
+    existing.qty += 1;
+  } else {
+    activeTable.items.push({ menuId: item.id, qty: 1 });
+  }
+  activeTable.status = "Aberta";
+  activeTable.payment = "Pendente";
+  state.selectedTableId = activeTable.id;
+  renderTableTabs();
+  showToast(`${item.name} adicionado na mesa ${String(activeTable.id).padStart(2, "0")}.`);
+}
+
+function removeItemFromTable(tableId, itemIndex) {
+  const table = tableTabs.find((entry) => entry.id === Number(tableId));
+  if (!table) return;
+  const item = table.items[Number(itemIndex)];
+  if (!item) return;
+  item.qty -= 1;
+  if (item.qty <= 0) table.items.splice(Number(itemIndex), 1);
+  if (!table.items.length && table.status !== "Livre") table.status = "Aberta";
+  table.payment = table.items.length ? "Pendente" : table.payment;
+  renderTableTabs();
+}
+
+function setTablePayment(tableId, method) {
+  const table = tableTabs.find((entry) => entry.id === Number(tableId));
+  if (!table || table.status === "Livre" || !table.items.length) return;
+  table.payment = method;
+  table.status = "Pagamento";
+  state.selectedTableId = table.id;
+  renderTableTabs();
+  showToast(`Pagamento da mesa ${String(table.id).padStart(2, "0")} marcado como ${method}.`);
+}
+
+function closeTableTab(tableId) {
+  const table = tableTabs.find((entry) => entry.id === Number(tableId));
+  if (!table || table.status === "Livre") return;
+  if (!table.items.length) {
+    table.guest = "Livre";
+    table.status = "Livre";
+    table.payment = "";
+    renderTableTabs();
+    closeTableCommandPanel();
+    return;
+  }
+  if (!["Pix", "Cartao", "Dinheiro"].includes(table.payment)) {
+    table.status = "Pagamento";
+    state.selectedTableId = table.id;
+    renderTableTabs();
+    showToast("Escolha a forma de pagamento antes de fechar.");
+    return;
+  }
+  const tableNumber = String(table.id).padStart(2, "0");
+  table.guest = "Livre";
+  table.status = "Livre";
+  table.payment = "";
+  table.items = [];
+  table.note = "Comanda fechada. Mesa liberada.";
+  renderTableTabs();
+  closeTableCommandPanel();
+  showToast(`Comanda da mesa ${tableNumber} fechada.`);
+}
+
+function renderTableTabs() {
+  const grid = qs("#tableCommandGrid");
+  const panel = qs("#waiterCommandPanel");
+  if (!grid || !panel) return;
+
+  grid.innerHTML = tableTabs
+    .map((table) => {
+      const total = tableTotal(table);
+      const preview = table.items.length
+        ? table.items
+            .slice(0, 3)
+            .map((item) => {
+              const info = commandItemInfo(item);
+              return `<span>${info.qty}x ${info.name}</span>`;
+            })
+            .join("")
+        : `<span>${table.note}</span>`;
+      const selected = table.id === state.selectedTableId;
+      return `
+        <article class="table-command-card ${tableStatusClass(table.status)} ${selected ? "selected" : ""}" data-table-select="${table.id}">
+          <div class="command-head">
+            <div>
+              <span>Mesa ${String(table.id).padStart(2, "0")}</span>
+              <strong>${table.guest}</strong>
+            </div>
+            <em>${table.status}</em>
+          </div>
+          <div class="command-items">${preview}</div>
+          <div class="command-foot">
+            <strong>${money.format(total)}</strong>
+            <div class="command-actions">
+              ${
+                table.status === "Livre"
+                  ? `<button class="button ghost small" data-table-open="${table.id}" type="button">Abrir</button>`
+                  : `<button class="button primary small" data-table-add="${table.id}" type="button">Adicionar</button>
+                     <button class="button ghost small" data-table-pay="${table.id}" type="button">Pagamento</button>`
+              }
+            </div>
+          </div>
+        </article>
+      `;
+    })
+    .join("");
+
+  const selectedTable =
+    tableTabs.find((entry) => entry.id === state.selectedTableId) || tableTabs[0];
+  const isFree = selectedTable.status === "Livre";
+  const total = tableTotal(selectedTable);
+  const selectedItems = selectedTable.items.length
+    ? selectedTable.items
+        .map((item, index) => {
+          const info = commandItemInfo(item);
+          return `
+            <div class="command-line-item">
+              <img src="${info.image}" alt="" aria-hidden="true" />
+              <div>
+                <strong>${info.qty}x ${info.name}</strong>
+                <span>${money.format(info.price * info.qty)}</span>
+              </div>
+              <button data-table-remove="${selectedTable.id}" data-table-item-index="${index}" type="button" aria-label="Remover ${info.name}">-</button>
+            </div>
+          `;
+        })
+        .join("")
+    : `<p class="empty-command">Nenhum item na comanda.</p>`;
+  const quickItems = menu
+    .filter((item) => item.recommended || item.priority || item.tag === "side")
+    .slice(0, 4);
+
+  panel.innerHTML = `
+    <div class="table-detail-head">
+      <div>
+        <span class="eyebrow">Comanda ativa</span>
+        <h2>Mesa ${String(selectedTable.id).padStart(2, "0")}</h2>
+      </div>
+      <span class="command-status-pill">${selectedTable.status}</span>
+      <button class="command-panel-close" data-command-close type="button" aria-label="Fechar comanda">
+        <svg viewBox="0 0 24 24" aria-hidden="true">
+          <path d="m6 9 6 6 6-6"></path>
+        </svg>
+      </button>
+    </div>
+    <div class="table-detail-total">
+      <span>Total da mesa</span>
+      <strong>${money.format(total)}</strong>
+      <small>${selectedTable.payment || "Sem pagamento"}</small>
+    </div>
+    <div class="command-detail-list">${selectedItems}</div>
+    <div class="quick-add-panel">
+      <strong>Adicionar item</strong>
+      <div>
+        ${quickItems
+          .map(
+            (item) => `
+          <button data-table-quick-add="${selectedTable.id}" data-menu-id="${item.id}" type="button" ${isFree ? "disabled" : ""}>
+            <img src="${item.image}" alt="" aria-hidden="true" />
+            <span>${item.name}</span>
+            <em>${money.format(item.price)}</em>
+          </button>
+        `,
+          )
+          .join("")}
+      </div>
+    </div>
+    <div class="table-payment-panel">
+      <strong>Pagamento</strong>
+      <div>
+        ${["Pix", "Cartao", "Dinheiro"]
+          .map(
+            (method) => `
+          <button class="${selectedTable.payment === method ? "active" : ""}" data-table-payment="${selectedTable.id}" data-payment-method="${method}" type="button" aria-label="${method}" title="${method}" ${isFree || !selectedTable.items.length ? "disabled" : ""}>
+            ${commandPaymentIcon(method)}
+          </button>
+        `,
+          )
+          .join("")}
+      </div>
+    </div>
+    <div class="table-close-row">
+      ${
+        isFree
+          ? `<button class="button primary" data-table-open="${selectedTable.id}" type="button">Abrir comanda</button>`
+          : `<button class="button danger" data-table-close="${selectedTable.id}" type="button">Fechar comanda</button>`
+      }
+    </div>
+  `;
 }
 
 function renderAdminMenu() {
@@ -690,9 +1289,11 @@ function route() {
   document.body.classList.remove("public-active");
   document.body.classList.remove("admin-active");
   document.body.classList.remove("store-cart-active");
+  closeTableCommandPanel();
   qsa("[data-nav-route]").forEach((link) => link.classList.remove("active"));
 
   if (hash === "admin") {
+    window.scrollTo({ top: 0, left: 0 });
     qs("#admin-view").classList.add("active");
     document.body.classList.add("admin-active");
     qs("[data-nav-route='partner']")?.classList.add("active");
@@ -703,12 +1304,17 @@ function route() {
     qs("#search-view").classList.add("active");
     qs("[data-nav-route='search']")?.classList.add("active");
     window.setTimeout(() => qs("#searchInput")?.focus(), 80);
-  } else if (hash === "ByteTruck/Catalogo") {
+  } else if (stores.some((store) => hash === `${store.slug}/Catalogo`)) {
+    const store = stores.find((entry) => hash === `${entry.slug}/Catalogo`);
+    state.activeStoreId = store?.id || "bytetruck";
+    state.filter = "all";
+    renderStorePage();
+    renderMenu();
     qs("#public-view").classList.add("active");
     document.body.classList.add("public-active");
     document.body.classList.add("store-cart-active");
     qs("[data-nav-route='home']")?.classList.add("active");
-    window.setTimeout(() => showPopup("#promoPopup", "storePromoSeen"), 450);
+    window.setTimeout(() => showPopup("#promoPopup", `storePromoSeen-${state.activeStoreId}`), 450);
   } else {
     qs("#home-view").classList.add("active");
     qs("[data-nav-route='home']")?.classList.add("active");
@@ -819,11 +1425,12 @@ function bindEvents() {
 
     if (event.target.closest("#promoAdd")) {
       event.preventDefault();
-      const item = menu.find((entry) => entry.recommended);
+      const item =
+        storeItems().find((entry) => entry.recommended) || storeItems()[0];
       state.cart.push(item);
       renderCart();
       closePromos();
-      showToast("Combo BBurguer adicionado a sacola.");
+      showToast(`${item.name} adicionado a sacola.`);
     }
 
     const addButton = event.target.closest("[data-add]");
@@ -832,21 +1439,6 @@ function bindEvents() {
       addMenuItemToCart(addButton.dataset.add);
     }
 
-    if (event.target.closest("[data-store-disabled]")) {
-      event.preventDefault();
-      showToast("Loja demonstrativa. No MVP, apenas ByteTruck esta ativa.");
-    }
-  });
-
-  qsa(".category-row button").forEach((button) => {
-    button.addEventListener("click", () => {
-      qsa(".category-row button").forEach((entry) =>
-        entry.classList.remove("active"),
-      );
-      button.classList.add("active");
-      state.filter = button.dataset.filter;
-      renderMenu();
-    });
   });
 
   qs("#searchInput").addEventListener("input", (event) => {
@@ -886,6 +1478,92 @@ function bindEvents() {
   });
 
   qs("#cancelOrder").addEventListener("click", () => updateTracking(true));
+  qs("#commandBackdrop")?.addEventListener("click", closeTableCommandPanel);
+
+  qs("#tables").addEventListener("click", (event) => {
+    const closeCommandButton = event.target.closest("[data-command-close]");
+    if (closeCommandButton) {
+      closeTableCommandPanel();
+      return;
+    }
+
+    const selectCard = event.target.closest("[data-table-select]");
+    const actionButton = event.target.closest("button");
+
+    if (selectCard && !actionButton) {
+      state.selectedTableId = Number(selectCard.dataset.tableSelect);
+      renderTableTabs();
+      openTableCommandPanel();
+      return;
+    }
+
+    const openNext = event.target.closest("[data-table-open-next]");
+    if (openNext) {
+      const freeTable = tableTabs.find((table) => table.status === "Livre");
+      if (!freeTable) {
+        showToast("Todas as mesas ja possuem comanda aberta.");
+        return;
+      }
+      openTableTab(freeTable.id);
+      openTableCommandPanel();
+      return;
+    }
+
+    const openButton = event.target.closest("[data-table-open]");
+    if (openButton) {
+      openTableTab(openButton.dataset.tableOpen);
+      openTableCommandPanel();
+      return;
+    }
+
+    const addButton = event.target.closest("[data-table-add]");
+    if (addButton) {
+      state.selectedTableId = Number(addButton.dataset.tableAdd);
+      renderTableTabs();
+      openTableCommandPanel();
+      showToast("Escolha um item rapido no painel da comanda.");
+      return;
+    }
+
+    const payButton = event.target.closest("[data-table-pay]");
+    if (payButton) {
+      state.selectedTableId = Number(payButton.dataset.tablePay);
+      renderTableTabs();
+      openTableCommandPanel();
+      showToast("Selecione Pix, Cartao ou Dinheiro para fechar.");
+      return;
+    }
+
+    const quickAddButton = event.target.closest("[data-table-quick-add]");
+    if (quickAddButton) {
+      addItemToTable(
+        quickAddButton.dataset.tableQuickAdd,
+        quickAddButton.dataset.menuId,
+      );
+      return;
+    }
+
+    const removeButton = event.target.closest("[data-table-remove]");
+    if (removeButton) {
+      removeItemFromTable(
+        removeButton.dataset.tableRemove,
+        removeButton.dataset.tableItemIndex,
+      );
+      return;
+    }
+
+    const paymentButton = event.target.closest("[data-table-payment]");
+    if (paymentButton) {
+      setTablePayment(
+        paymentButton.dataset.tablePayment,
+        paymentButton.dataset.paymentMethod,
+      );
+      return;
+    }
+
+    const closeButton = event.target.closest("[data-table-close]");
+    if (closeButton) closeTableTab(closeButton.dataset.tableClose);
+  });
 
   qsa("[data-admin-tab]").forEach((button) => {
     button.addEventListener("click", () => {
@@ -895,7 +1573,7 @@ function bindEvents() {
       qsa(".admin-tab").forEach((entry) => entry.classList.remove("active"));
       button.classList.add("active");
       qs(`#${button.dataset.adminTab}`).classList.add("active");
-      qs("#adminTitle").textContent = button.dataset.adminTitle;
+      if (button.dataset.adminTab !== "tables") closeTableCommandPanel();
     });
   });
 
@@ -911,11 +1589,14 @@ function bindEvents() {
   });
 }
 
+renderHomeStores();
+renderStorePage();
 renderMenu();
 renderSearchResults();
 renderCart();
 renderOrders();
 renderAdminMenu();
+renderTableTabs();
 updateTracking(false);
 bindEvents();
 route();
