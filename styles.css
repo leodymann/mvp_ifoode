@@ -5200,7 +5200,8 @@ body.cart-modal-open .order-panel,
     right: 0;
     bottom: 0;
     z-index: 100;
-    width: auto;
+    width: 100vw;
+    min-width: 100vw;
     max-width: none;
     height: calc(100dvh - 18px);
     max-height: none;
@@ -5208,6 +5209,7 @@ body.cart-modal-open .order-panel,
     padding: 22px 22px calc(104px + env(safe-area-inset-bottom));
     border: 0;
     border-radius: 24px 24px 0 0;
+    background: #fff;
     box-shadow: none;
     transform: translateY(100%);
     transition:
@@ -5222,10 +5224,12 @@ body.cart-modal-open .order-panel,
     top: 18px;
     right: 0;
     bottom: 0;
-    width: auto;
+    width: 100vw;
+    min-width: 100vw;
     max-width: none;
     height: calc(100dvh - 18px);
     max-height: none;
+    border-radius: 24px 24px 0 0;
     transform: translateY(0);
     opacity: 1;
     pointer-events: auto;
