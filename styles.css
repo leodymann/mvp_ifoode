@@ -164,28 +164,22 @@ input {
 }
 
 .user-address strong {
-  color: var(--ink);
-  font-size: 16px;
+  color: var(--muted);
+  font-size: 8px;
+  font-weight: 800;
 }
 
 .address-line {
   display: inline-flex;
   align-items: center;
-  gap: 8px;
   min-width: 0;
-}
-
-.address-line .fi {
-  flex: 0 0 auto;
-  color: var(--brand);
-  font-size: 17px;
-  line-height: 1;
 }
 
 .address-line span:last-child {
   overflow: hidden;
-  color: var(--muted);
-  font-weight: 700;
+  color: var(--ink);
+  font-size: 10px;
+  font-weight: 900;
   text-overflow: ellipsis;
   white-space: nowrap;
 }
