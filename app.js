@@ -369,6 +369,7 @@ const storePromos = {
     text: "Burger da casa com fritas crocantes para pedir sem comparar o cardapio.",
     badge: "Oferta da loja",
     button: "Pedir combo",
+    oldPrice: 54.9,
   },
   slicebyte: {
     itemId: 10,
@@ -376,6 +377,7 @@ const storePromos = {
     text: "Pizza de pepperoni com queijo derretido, pronta para a noite de hoje.",
     badge: "Mais pedida",
     button: "Pedir pizza",
+    oldPrice: 68.9,
   },
   sushikernel: {
     itemId: 13,
@@ -383,6 +385,7 @@ const storePromos = {
     text: "Selecao com 10 pecas variadas para resolver o pedido sem excesso de escolha.",
     badge: "Selecao fresca",
     button: "Pedir sushi",
+    oldPrice: 59.9,
   },
   drinkhub: {
     itemId: 21,
@@ -390,6 +393,7 @@ const storePromos = {
     text: "Drink autoral gelado para acompanhar a noite com uma escolha direta.",
     badge: "Drink em destaque",
     button: "Pedir drink",
+    oldPrice: 29.9,
   },
 };
 
@@ -672,6 +676,7 @@ function storePromo(store) {
       `${item?.description || store.category}, pronto para ir direto para sua sacola.`,
     badge: promo.badge || "Oferta da loja",
     button: promo.button || "Adicionar",
+    oldPrice: promo.oldPrice || (item ? item.price + 8 : 0),
   };
 }
 
@@ -752,6 +757,7 @@ function renderStorePage() {
     setText("#promoBadge", promo.badge);
     setText("#promoTitle", promo.title);
     setText("#promoText", promo.text);
+    setText("#promoOldPrice", money.format(promo.oldPrice));
     setText("#promoPrice", money.format(recommended.price));
     setText("#promoAdd", promo.button);
     qs("#promoAdd").dataset.add = recommended.id;

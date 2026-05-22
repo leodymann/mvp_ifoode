@@ -39,9 +39,10 @@ body {
   z-index: 999;
   display: grid;
   place-items: center;
-  gap: 18px;
+  gap: 10px;
   align-content: center;
-  background: var(--brand);
+  overflow: hidden;
+  background: #ea1d2c;
   color: #fff;
   animation: splashSettle 0.82s cubic-bezier(0.2, 0.8, 0.2, 1) both;
   pointer-events: none;
@@ -51,13 +52,96 @@ body {
   animation: splashLeave 0.46s ease forwards;
 }
 
+.splash-stars {
+  position: relative;
+  z-index: 2;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  gap: clamp(5px, 1.8vw, 10px);
+  min-height: 36px;
+  margin-bottom: 6px;
+}
+
+.splash-stars span {
+  width: clamp(18px, 5vw, 28px);
+  height: clamp(18px, 5vw, 28px);
+  background: #ffdf00;
+  clip-path: polygon(
+    50% 0,
+    61% 35%,
+    98% 35%,
+    68% 56%,
+    79% 91%,
+    50% 70%,
+    21% 91%,
+    32% 56%,
+    2% 35%,
+    39% 35%
+  );
+  filter: drop-shadow(0 7px 12px rgba(0, 0, 0, 0.22));
+  animation: starSettle 0.62s ease both;
+}
+
+.splash-stars span:nth-child(2) {
+  animation-delay: 0.05s;
+}
+
+.splash-stars span:nth-child(3) {
+  animation-delay: 0.1s;
+}
+
+.splash-stars span:nth-child(4) {
+  animation-delay: 0.15s;
+}
+
+.splash-stars span:nth-child(5) {
+  animation-delay: 0.2s;
+}
+
+.splash-stars .sixth {
+  width: 0;
+  opacity: 0;
+  transform: scale(0.4) rotate(-18deg);
+  animation: sixthStar 0.58s cubic-bezier(0.2, 1.1, 0.2, 1) 0.54s forwards;
+}
+
+.splash-stars span:nth-child(even) {
+  background: #009c3b;
+}
+
 .splash-logo {
-  font-size: clamp(46px, 12vw, 88px);
+  position: relative;
+  z-index: 2;
+  color: transparent;
+  background: linear-gradient(90deg, #009c3b 0 34%, #ffdf00 34% 68%, #002776 68% 100%);
+  background-clip: text;
+  -webkit-background-clip: text;
+  font-family: Impact, "Arial Black", "Franklin Gothic Heavy", sans-serif;
+  font-size: clamp(34px, 9vw, 72px);
   font-weight: 950;
-  letter-spacing: 0;
+  font-stretch: condensed;
+  letter-spacing: 0.5px;
+  text-transform: uppercase;
+  filter: drop-shadow(0 10px 22px rgba(0, 0, 0, 0.22));
+  text-shadow: none;
+  animation: splashTitleIn 0.58s cubic-bezier(0.2, 0.9, 0.2, 1) 0.22s both;
+}
+
+.splash-subtitle {
+  position: relative;
+  z-index: 2;
+  margin: -2px 0 8px;
+  color: #ffdf00;
+  font-size: clamp(12px, 3vw, 15px);
+  font-weight: 900;
+  text-transform: uppercase;
+  animation: splashTitleIn 0.52s cubic-bezier(0.2, 0.9, 0.2, 1) 0.36s both;
 }
 
 .splash-loader {
+  position: relative;
+  z-index: 2;
   display: flex;
   gap: 7px;
   align-items: center;
@@ -68,7 +152,7 @@ body {
   width: 8px;
   height: 8px;
   border-radius: 999px;
-  background: rgba(255, 255, 255, 0.95);
+  background: #ffdf00;
   animation: splashDot 0.72s ease-in-out infinite;
 }
 
@@ -107,6 +191,46 @@ body {
   50% {
     opacity: 1;
     transform: translateY(-5px);
+  }
+}
+
+@keyframes splashTitleIn {
+  from {
+    opacity: 0;
+    transform: translateY(14px) scale(0.96);
+  }
+  to {
+    opacity: 1;
+    transform: translateY(0) scale(1);
+  }
+}
+
+@keyframes starSettle {
+  from {
+    opacity: 0;
+    transform: translateY(12px) scale(0.7) rotate(-16deg);
+  }
+  to {
+    opacity: 1;
+    transform: translateY(0) scale(1) rotate(0);
+  }
+}
+
+@keyframes sixthStar {
+  0% {
+    width: 0;
+    opacity: 0;
+    transform: scale(0.35) rotate(-18deg);
+  }
+  65% {
+    width: clamp(18px, 5vw, 28px);
+    opacity: 1;
+    transform: scale(1.18) rotate(8deg);
+  }
+  100% {
+    width: clamp(18px, 5vw, 28px);
+    opacity: 1;
+    transform: scale(1) rotate(0);
   }
 }
 
@@ -4415,8 +4539,9 @@ body.cart-modal-open .cart-backdrop {
 
 .promo-content {
   display: grid;
-  gap: 10px;
+  gap: 12px;
   padding: 18px;
+  text-align: center;
 }
 
 .promo-popup h2 {
@@ -4429,24 +4554,39 @@ body.cart-modal-open .cart-backdrop {
 }
 
 .promo-price {
-  display: flex;
-  align-items: end;
-  justify-content: space-between;
-  gap: 12px;
-  padding: 12px;
-  border-radius: 8px;
-  background: var(--soft);
+  display: inline-flex;
+  flex-wrap: wrap;
+  align-items: center;
+  justify-content: center;
+  justify-self: center;
+  gap: 7px;
+  margin: 2px 0 4px;
+  padding: 0;
+  color: var(--brand);
+  background: transparent;
+}
+
+.promo-price small {
+  flex: 0 0 100%;
+  color: var(--muted);
+  font-size: 12px;
+  font-weight: 800;
+  line-height: 1;
+  text-align: center;
+  text-decoration: line-through;
 }
 
 .fire-icon {
-  width: 24px;
-  height: 24px;
-  fill: var(--brand);
+  width: 26px;
+  height: 26px;
+  fill: currentColor;
 }
 
 .promo-price strong {
-  font-size: 24px;
-  color: var(--ink);
+  color: currentColor;
+  font-size: 30px;
+  font-weight: 950;
+  line-height: 1;
 }
 
 .promo-close {
@@ -4455,14 +4595,16 @@ body.cart-modal-open .cart-backdrop {
   right: 12px;
   display: grid;
   place-items: center;
-  width: 32px;
-  height: 32px;
+  width: 38px;
+  height: 38px;
   border: 0;
   border-radius: 50%;
-  color: #fff;
-  background: rgba(0, 0, 0, 0.48);
+  color: var(--brand);
+  background: rgba(255, 255, 255, 0.96);
+  box-shadow: 0 8px 22px rgba(0, 0, 0, 0.22);
   cursor: pointer;
-  font-weight: 900;
+  font-size: 19px;
+  font-weight: 950;
 }
 
 body.cart-modal-open .order-panel,
