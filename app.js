@@ -757,6 +757,13 @@ function paymentFee(subtotal) {
   return 0;
 }
 
+function selectedPaymentLabel() {
+  const payment = qs("input[name='payment']:checked").value;
+  if (payment === "pix") return "Pix";
+  if (payment === "card") return "Cartão";
+  return "site";
+}
+
 function paymentFeePercent(value, fee) {
   if (!value || !fee) return "0%";
   return `${((fee / value) * 100).toLocaleString("pt-BR", {
@@ -772,11 +779,10 @@ function renderCartStep() {
   qsa("[data-cart-step]").forEach((step) => {
     step.classList.toggle("active", step.dataset.cartStep === activeStep);
   });
-  const total = qs("#total")?.textContent || "R$ 0,00";
   const labels = {
     items: "Continuar",
     delivery: "Ir para pagamento",
-    payment: `Revisar pedido - ${total}`,
+    payment: "Revisar pedido",
   };
   setText("#placeOrder", labels[activeStep] || "Continuar");
 }
@@ -853,18 +859,15 @@ function renderCart() {
   const subtotal = state.cart.reduce((sum, item) => sum + item.price, 0);
   const deliveryFee = state.cart.length ? 5.99 : 0;
   const fee = paymentFee(subtotal);
-  const pixFee = subtotal ? subtotal * 0.0144 + 0.67 : 0;
-  const cardFee = subtotal ? subtotal * 0.0499 + 0.49 : 0;
   const total = subtotal + fee + deliveryFee;
   setText("#subtotal", money.format(subtotal));
-  setText("#fee", money.format(fee));
+  setText("#fee", fee ? money.format(fee) : "Sem taxa");
   setText("#total", money.format(total));
   setText(
-    "#paymentFeeNote",
-    `Pix ${paymentFeePercent(subtotal, pixFee)} | Cartão ${paymentFeePercent(
-      subtotal,
-      cardFee,
-    )}`,
+    "#feeLabel",
+    fee
+      ? `Taxa ${selectedPaymentLabel()} (${paymentFeePercent(subtotal, fee)})`
+      : "Taxa do site",
   );
   setText(
     "#cartFooterTotal",

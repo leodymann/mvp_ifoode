@@ -1904,6 +1904,9 @@ p {
   color: var(--muted);
   font-weight: 700;
 }
+.totals .fee-row {
+  align-items: center;
+}
 .totals div strong {
   color: var(--ink);
 }
@@ -1921,11 +1924,6 @@ p {
   background: #fff8e8;
   font-size: 13px;
   font-weight: 750;
-}
-.payment-fee-note {
-  margin-bottom: 6px;
-  padding: 9px 12px;
-  text-align: center;
 }
 .continue-shopping {
   margin-bottom: 8px;
@@ -5259,16 +5257,6 @@ body.cart-modal-open .order-panel,
     width: auto;
     margin: 0;
     padding: 12px 22px calc(14px + env(safe-area-inset-bottom));
-  }
-  .payment-fee-note {
-    width: fit-content;
-    max-width: 100%;
-    margin: 0 auto 4px;
-    padding: 7px 10px;
-    border-radius: 999px;
-    font-size: 11px;
-    line-height: 1.2;
-    white-space: nowrap;
   }
   body.store-cart-active .mobile-cart-trigger,
   body.cart-has-items:not(.admin-active) .mobile-cart-trigger {
