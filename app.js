@@ -280,7 +280,118 @@ const menu = [
     priority: false,
     image: "cardapios/skinny bitch.jpg",
   },
+  {
+    id: 24,
+    storeId: "bytetruck",
+    name: "Coca-Cola 350ml",
+    description: "Lata gelada",
+    price: 7.9,
+    tag: "drink",
+    priority: false,
+    image: "cardapios/coca-cola350ml.jpg",
+  },
+  {
+    id: 25,
+    storeId: "bytetruck",
+    name: "Suco de laranja",
+    description: "350ml natural",
+    price: 11.9,
+    tag: "drink",
+    priority: false,
+    image: "cardapios/sucodelaranja-350ml.jpg",
+  },
+  {
+    id: 26,
+    storeId: "slicebyte",
+    name: "Coca-Cola 350ml",
+    description: "Lata gelada",
+    price: 7.9,
+    tag: "drink",
+    priority: false,
+    image: "cardapios/coca-cola350ml.jpg",
+  },
+  {
+    id: 27,
+    storeId: "slicebyte",
+    name: "Jarra de laranja",
+    description: "1 litro para dividir",
+    price: 24.9,
+    tag: "drink",
+    priority: false,
+    image: "cardapios/jarradesucolaranja-1l.jpg",
+  },
+  {
+    id: 28,
+    storeId: "slicebyte",
+    name: "Suco de laranja",
+    description: "350ml natural",
+    price: 11.9,
+    tag: "drink",
+    priority: false,
+    image: "cardapios/sucodelaranja-350ml.jpg",
+  },
+  {
+    id: 29,
+    storeId: "sushikernel",
+    name: "Coca-Cola 350ml",
+    description: "Lata gelada",
+    price: 7.9,
+    tag: "drink",
+    priority: false,
+    image: "cardapios/coca-cola350ml.jpg",
+  },
+  {
+    id: 30,
+    storeId: "sushikernel",
+    name: "Suco de laranja",
+    description: "350ml natural",
+    price: 11.9,
+    tag: "drink",
+    priority: false,
+    image: "cardapios/sucodelaranja-350ml.jpg",
+  },
+  {
+    id: 31,
+    storeId: "sushikernel",
+    name: "Copo Coca-Cola 450ml",
+    description: "Copo grande gelado",
+    price: 10.9,
+    tag: "drink",
+    priority: false,
+    image: "cardapios/copao-450ml(coca-cola).jpg",
+  },
 ];
+
+const storePromos = {
+  bytetruck: {
+    itemId: 2,
+    title: "Combo BBurguer + fritas",
+    text: "Burger da casa com fritas crocantes para pedir sem comparar o cardapio.",
+    badge: "Oferta da loja",
+    button: "Pedir combo",
+  },
+  slicebyte: {
+    itemId: 10,
+    title: "Pepperoni Byte",
+    text: "Pizza de pepperoni com queijo derretido, pronta para a noite de hoje.",
+    badge: "Mais pedida",
+    button: "Pedir pizza",
+  },
+  sushikernel: {
+    itemId: 13,
+    title: "Sushi Kernel 10",
+    text: "Selecao com 10 pecas variadas para resolver o pedido sem excesso de escolha.",
+    badge: "Selecao fresca",
+    button: "Pedir sushi",
+  },
+  drinkhub: {
+    itemId: 21,
+    title: "Mykonian",
+    text: "Drink autoral gelado para acompanhar a noite com uma escolha direta.",
+    badge: "Drink em destaque",
+    button: "Pedir drink",
+  },
+};
 
 const orders = [
   {
@@ -547,6 +658,23 @@ function storeItems(storeId = state.activeStoreId) {
   return menu.filter((item) => item.storeId === storeId);
 }
 
+function storePromo(store) {
+  const promo = storePromos[store.id] || {};
+  const item =
+    menu.find((entry) => entry.id === promo.itemId) ||
+    storeItems(store.id).find((entry) => entry.recommended) ||
+    storeItems(store.id)[0];
+  return {
+    item,
+    title: promo.title || item?.name || store.name,
+    text:
+      promo.text ||
+      `${item?.description || store.category}, pronto para ir direto para sua sacola.`,
+    badge: promo.badge || "Oferta da loja",
+    button: promo.button || "Adicionar",
+  };
+}
+
 function renderHomeStores() {
   const list = qs("#storeList");
   if (!list) return;
@@ -593,9 +721,8 @@ function renderCategoryFilters() {
 
 function renderStorePage() {
   const store = activeStore();
-  const recommended =
-    storeItems(store.id).find((item) => item.recommended) ||
-    storeItems(store.id)[0];
+  const promo = storePromo(store);
+  const recommended = promo.item;
   qs("#restaurantCoverArt").style.backgroundImage =
     `linear-gradient(180deg, rgba(0, 0, 0, 0.02), rgba(0, 0, 0, 0.48)), url("${store.hero}")`;
   setText("#restaurantName", store.name);
@@ -610,20 +737,23 @@ function renderStorePage() {
 
   if (recommended) {
     qs("#storePromoImage").src = recommended.image;
-    qs("#storePromoImage").alt = recommended.name;
-    setText("#storePromoTitle", recommended.name);
-    setText(
-      "#storePromoText",
-      `${recommended.description}, pronto para ir direto para sua sacola.`,
-    );
+    qs("#storePromoImage").alt = promo.title;
+    setText(".store-promo-content .badge", promo.badge);
+    setText("#storePromoTitle", promo.title);
+    setText("#storePromoText", promo.text);
     setText("#storePromoPrice", money.format(recommended.price));
     qs("#storePromoButton").dataset.add = recommended.id;
+    setText("#storePromoButton", promo.button);
     const popupPhoto = qs(".promo-photo");
     if (popupPhoto) {
       popupPhoto.src = recommended.image;
-      popupPhoto.alt = recommended.name;
+      popupPhoto.alt = promo.title;
     }
-    setText("#promoTitle", recommended.name);
+    setText("#promoBadge", promo.badge);
+    setText("#promoTitle", promo.title);
+    setText("#promoText", promo.text);
+    setText("#promoPrice", money.format(recommended.price));
+    setText("#promoAdd", promo.button);
     qs("#promoAdd").dataset.add = recommended.id;
   }
   renderCategoryFilters();
@@ -1512,12 +1642,9 @@ function bindEvents() {
 
     if (event.target.closest("#promoAdd")) {
       event.preventDefault();
-      const item =
-        storeItems().find((entry) => entry.recommended) || storeItems()[0];
-      state.cart.push(item);
-      renderCart();
+      addMenuItemToCart(qs("#promoAdd").dataset.add);
       closePromos();
-      showToast(`${item.name} adicionado a sacola.`);
+      return;
     }
 
     const addButton = event.target.closest("[data-add]");
