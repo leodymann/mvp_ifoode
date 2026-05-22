@@ -5551,8 +5551,8 @@ body.cart-modal-open .order-panel,
     min-width: 0;
   }
   body.public-active .catalog-section .section-heading.compact {
-    position: sticky;
-    top: 68px;
+    position: static;
+    top: auto;
     z-index: 42;
     display: grid;
     grid-template-columns: 1fr;
@@ -5607,7 +5607,7 @@ body.cart-modal-open .order-panel,
 
 @media (max-width: 380px) {
   body.public-active .catalog-section .section-heading.compact {
-    top: 64px;
+    top: auto;
     padding-top: 9px;
   }
   body.public-active .catalog-section .section-heading.compact h2 {
