@@ -287,9 +287,7 @@ const orders = [
     id: "BT-1048",
     client: "Marina",
     items: "Combo Truck",
-    itemList: [
-      { qty: 1, name: "Combo BBurguer", price: 44.9 },
-    ],
+    itemList: [{ qty: 1, name: "Combo BBurguer", price: 44.9 }],
     status: "Em preparo",
     payment: "Pix",
     priority: true,
@@ -304,9 +302,7 @@ const orders = [
     id: "BT-1049",
     client: "Rafael",
     items: "Smash Byte",
-    itemList: [
-      { qty: 1, name: "Smash Byte", price: 32.9 },
-    ],
+    itemList: [{ qty: 1, name: "Smash Byte", price: 32.9 }],
     status: "Novo",
     payment: "Cartao",
     priority: true,
@@ -321,9 +317,7 @@ const orders = [
     id: "BT-1050",
     client: "Duda",
     items: "Veggie Kernel",
-    itemList: [
-      { qty: 1, name: "Veggie Kernel", price: 34.9 },
-    ],
+    itemList: [{ qty: 1, name: "Veggie Kernel", price: 34.9 }],
     status: "Entrega",
     payment: "Dinheiro",
     priority: false,
@@ -468,13 +462,18 @@ function initHomeFeed() {
   const cards = qsa("#homeFeed .feed-card");
   if (!feed || cards.length < 2) return;
   const indicators = qs("#homeFeedIndicators");
-  let activeIndex = Math.max(0, cards.findIndex((card) => card.classList.contains("active")));
+  let activeIndex = Math.max(
+    0,
+    cards.findIndex((card) => card.classList.contains("active")),
+  );
   if (indicators) {
     indicators.innerHTML = cards.map(() => "<span></span>").join("");
   }
   const bars = qsa("#homeFeedIndicators span");
   const setActiveFeedCard = () => {
-    cards.forEach((card, index) => card.classList.toggle("active", index === activeIndex));
+    cards.forEach((card, index) =>
+      card.classList.toggle("active", index === activeIndex),
+    );
     bars.forEach((bar, index) => {
       bar.classList.remove("active", "done");
       void bar.offsetWidth;
@@ -595,8 +594,10 @@ function renderCategoryFilters() {
 function renderStorePage() {
   const store = activeStore();
   const recommended =
-    storeItems(store.id).find((item) => item.recommended) || storeItems(store.id)[0];
-  qs("#restaurantCoverArt").style.backgroundImage = `linear-gradient(180deg, rgba(0, 0, 0, 0.02), rgba(0, 0, 0, 0.48)), url("${store.hero}")`;
+    storeItems(store.id).find((item) => item.recommended) ||
+    storeItems(store.id)[0];
+  qs("#restaurantCoverArt").style.backgroundImage =
+    `linear-gradient(180deg, rgba(0, 0, 0, 0.02), rgba(0, 0, 0, 0.48)), url("${store.hero}")`;
   setText("#restaurantName", store.name);
   setText(
     "#restaurantDescription",
@@ -611,7 +612,10 @@ function renderStorePage() {
     qs("#storePromoImage").src = recommended.image;
     qs("#storePromoImage").alt = recommended.name;
     setText("#storePromoTitle", recommended.name);
-    setText("#storePromoText", `${recommended.description}, pronto para ir direto para sua sacola.`);
+    setText(
+      "#storePromoText",
+      `${recommended.description}, pronto para ir direto para sua sacola.`,
+    );
     setText("#storePromoPrice", money.format(recommended.price));
     qs("#storePromoButton").dataset.add = recommended.id;
     const popupPhoto = qs(".promo-photo");
@@ -649,7 +653,7 @@ function renderMenu() {
     <article class="menu-card ${item.recommended ? "featured-menu-card" : ""}">
       <div class="menu-copy">
         <div class="menu-badges">
-          ${item.recommended ? "<span class=\"badge live\">Mais pedido</span>" : ""}
+          ${item.recommended ? '<span class="badge live">Mais pedido</span>' : ""}
           <span class="badge ${item.priority ? "" : "muted"}">${item.priority ? "Destaque" : "Regular"}</span>
         </div>
         <div class="menu-meta">
@@ -705,18 +709,20 @@ function renderSearchResults() {
         )
         .slice(0, 5)
     : stores
-        .map((store) =>
-          menu.find((item) => item.storeId === store.id && item.recommended) ||
-          menu.find((item) => item.storeId === store.id),
+        .map(
+          (store) =>
+            menu.find(
+              (item) => item.storeId === store.id && item.recommended,
+            ) || menu.find((item) => item.storeId === store.id),
         )
         .filter(Boolean);
 
   qs("#searchResults").innerHTML = items.length
     ? items
-        .map(
-          (item) => {
-            const store = stores.find((entry) => entry.id === item.storeId) || stores[0];
-            return `
+        .map((item) => {
+          const store =
+            stores.find((entry) => entry.id === item.storeId) || stores[0];
+          return `
     <article class="menu-card search-result-card">
       <div class="menu-copy">
         <span class="badge ${item.recommended ? "live" : ""}">${item.recommended ? "Mais pedido" : "Destaque"}</span>
@@ -729,8 +735,8 @@ function renderSearchResults() {
       </div>
       <img class="food-photo" src="${item.image}" alt="${item.name}" loading="lazy" />
     </article>
-  `},
-        )
+  `;
+        })
         .join("")
     : `
     <article class="menu-card search-result-card">
@@ -746,9 +752,17 @@ function renderSearchResults() {
 
 function paymentFee(subtotal) {
   const payment = qs("input[name='payment']:checked").value;
-  if (payment === "pix") return subtotal * 0.0199;
-  if (payment === "card") return subtotal * 0.0499 + 0.49;
+  if (payment === "pix") return subtotal ? subtotal * 0.0144 + 0.67 : 0;
+  if (payment === "card") return subtotal ? subtotal * 0.0499 + 0.49 : 0;
   return 0;
+}
+
+function paymentFeePercent(value, fee) {
+  if (!value || !fee) return "0%";
+  return `${((fee / value) * 100).toLocaleString("pt-BR", {
+    minimumFractionDigits: 2,
+    maximumFractionDigits: 2,
+  })}%`;
 }
 
 const cartSteps = ["items", "delivery", "payment"];
@@ -819,24 +833,39 @@ function renderCart() {
   }
 
   qsa("[data-cart-decrease]").forEach((button) => {
-    button.addEventListener("click", () => removeOneCartItem(button.dataset.cartDecrease));
+    button.addEventListener("click", () =>
+      removeOneCartItem(button.dataset.cartDecrease),
+    );
   });
 
   qsa("[data-cart-increase]").forEach((button) => {
-    button.addEventListener("click", () => addMenuItemToCart(button.dataset.cartIncrease));
+    button.addEventListener("click", () =>
+      addMenuItemToCart(button.dataset.cartIncrease),
+    );
   });
 
   qsa("[data-cart-delete]").forEach((button) => {
-    button.addEventListener("click", () => removeAllCartItems(button.dataset.cartDelete));
+    button.addEventListener("click", () =>
+      removeAllCartItems(button.dataset.cartDelete),
+    );
   });
 
   const subtotal = state.cart.reduce((sum, item) => sum + item.price, 0);
   const deliveryFee = state.cart.length ? 5.99 : 0;
   const fee = paymentFee(subtotal);
+  const pixFee = subtotal ? subtotal * 0.0144 + 0.67 : 0;
+  const cardFee = subtotal ? subtotal * 0.0499 + 0.49 : 0;
   const total = subtotal + fee + deliveryFee;
   setText("#subtotal", money.format(subtotal));
   setText("#fee", money.format(fee));
   setText("#total", money.format(total));
+  setText(
+    "#paymentFeeNote",
+    `Pix ${paymentFeePercent(subtotal, pixFee)} | Cartão ${paymentFeePercent(
+      subtotal,
+      cardFee,
+    )}`,
+  );
   setText(
     "#cartFooterTotal",
     `${money.format(total)} / ${state.cart.length} ${
@@ -1097,7 +1126,9 @@ function addItemToTable(tableId, itemId) {
   activeTable.payment = "Pendente";
   state.selectedTableId = activeTable.id;
   renderTableTabs();
-  showToast(`${item.name} adicionado na mesa ${String(activeTable.id).padStart(2, "0")}.`);
+  showToast(
+    `${item.name} adicionado na mesa ${String(activeTable.id).padStart(2, "0")}.`,
+  );
 }
 
 function removeItemFromTable(tableId, itemIndex) {
@@ -1119,7 +1150,9 @@ function setTablePayment(tableId, method) {
   table.status = "Pagamento";
   state.selectedTableId = table.id;
   renderTableTabs();
-  showToast(`Pagamento da mesa ${String(table.id).padStart(2, "0")} marcado como ${method}.`);
+  showToast(
+    `Pagamento da mesa ${String(table.id).padStart(2, "0")} marcado como ${method}.`,
+  );
 }
 
 function closeTableTab(tableId) {
@@ -1196,7 +1229,8 @@ function renderTableTabs() {
     .join("");
 
   const selectedTable =
-    tableTabs.find((entry) => entry.id === state.selectedTableId) || tableTabs[0];
+    tableTabs.find((entry) => entry.id === state.selectedTableId) ||
+    tableTabs[0];
   const isFree = selectedTable.status === "Livre";
   const total = tableTotal(selectedTable);
   const selectedItems = selectedTable.items.length
@@ -1358,7 +1392,10 @@ function route() {
     document.body.classList.add("public-active");
     document.body.classList.add("store-cart-active");
     qs("[data-nav-route='home']")?.classList.add("active");
-    window.setTimeout(() => showPopup("#promoPopup", `storePromoSeen-${state.activeStoreId}`), 450);
+    window.setTimeout(
+      () => showPopup("#promoPopup", `storePromoSeen-${state.activeStoreId}`),
+      450,
+    );
   } else {
     qs("#home-view").classList.add("active");
     qs("[data-nav-route='home']")?.classList.add("active");
@@ -1392,7 +1429,10 @@ function updateTracking(cancelled = false) {
   }
 
   const [title, text] = statuses[state.trackingStep];
-  qs("#tracking-view")?.setAttribute("data-tracking-step", String(state.trackingStep));
+  qs("#tracking-view")?.setAttribute(
+    "data-tracking-step",
+    String(state.trackingStep),
+  );
   qs("#trackingStatus").textContent = title;
   qsa("#timeline li").forEach((item, index) => {
     item.className =
@@ -1482,7 +1522,6 @@ function bindEvents() {
       event.preventDefault();
       addMenuItemToCart(addButton.dataset.add);
     }
-
   });
 
   qs("#searchInput").addEventListener("input", (event) => {
